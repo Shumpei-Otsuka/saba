@@ -52,13 +52,12 @@ class IntentService : IntentService("IntentService") {
                 // start Foreground
                 val notification = MakeNotification()
                 startForeground(1, notification)
-                // update Widget
-                val context = applicationContext
-                val appWidgetManager = AppWidgetManager.getInstance(this)
-                val appWidgetIds = appWidgetManager.getAppWidgetIds(ComponentName(this, AppWidget::class.java))
                 // TODO: replace to timer?
                 while(destroyFlag == false){
-                    //update train schedule
+                    // update Widget
+                    val context = applicationContext
+                    val appWidgetManager = AppWidgetManager.getInstance(this)
+                    val appWidgetIds = appWidgetManager.getAppWidgetIds(ComponentName(this, AppWidget::class.java))
                     var views = RemoteViews(context.packageName, R.layout.app_widget)
                     views = UpdateWidgetViews(views, trainSchedule)
                     for (appWidgetId in appWidgetIds){
