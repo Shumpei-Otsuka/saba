@@ -89,7 +89,7 @@ class TrainSchedule(val trainScheduleConfig: TrainScheduleConfig) {
         var line = reader.readLine()
         val columns = line.split(",")
         while(true) {
-            var line = reader.readLine()
+            line = reader.readLine()
             if (line == null) {
                 break
             }
@@ -139,27 +139,27 @@ class TrainSchedule(val trainScheduleConfig: TrainScheduleConfig) {
     fun getNextTrain(): TrainData {
         val now: LocalDateTime = LocalDateTime.now()
         //total seconds from 00:00:00
-        val total_sec_now = now.hour*60*60 + now.minute*60 + now.second
+        val totalSecNow = now.hour*60*60 + now.minute*60 + now.second
 
         //init values
-        var dt_best = 24*60*60*2 // = 2 Days
+        var dtBest = 24*60*60*2 // = 2 Days
         var nextTrain = TrainData(-1, -1)
         //get best train today
         for (train in trainsToday) {
-            var total_sec_train = train.hour*60*60 + train.minute*60
-            var dt = total_sec_train - total_sec_now
-            if((dt > 0) and (dt < dt_best)){
+            var totalSecTrain = train.hour*60*60 + train.minute*60
+            var dt = totalSecTrain - totalSecNow
+            if((dt > 0) and (dt < dtBest)){
                 nextTrain = train
-                dt_best = dt
+                dtBest = dt
             }
         }
         //get best train tomorrow
         for (train in trainsTomorrow) {
-            var total_sec_train = train.hour*60*60 + train.minute*60 + 24*60*60
-            var dt = total_sec_train - total_sec_now
-            if((dt > 0) and (dt < dt_best)){
+            var totalSecTrain = train.hour*60*60 + train.minute*60 + 24*60*60
+            var dt = totalSecTrain - totalSecNow
+            if((dt > 0) and (dt < dtBest)){
                 nextTrain = train
-                dt_best = dt
+                dtBest = dt
             }
         }
         return nextTrain
@@ -169,29 +169,29 @@ class TrainSchedule(val trainScheduleConfig: TrainScheduleConfig) {
     fun getNext3Trains(): List<TrainData> {
         val now: LocalDateTime = LocalDateTime.now()
         //total seconds from 00:00:00
-        val total_sec_now = now.hour*60*60 + now.minute*60 + now.second
+        val totalSecNow = now.hour*60*60 + now.minute*60 + now.second
         // calc remain time
         var deltaTimes = arrayOf<Int>()
         for (train in trainsToday) {
-            var total_sec_train = train.hour*60*60 + train.minute*60
-            var dt = total_sec_train - total_sec_now
+            var totalSecTrain = train.hour*60*60 + train.minute*60
+            var dt = totalSecTrain - totalSecNow
             deltaTimes += dt
         }
         for (train in trainsTomorrow) {
-            var total_sec_train = train.hour*60*60 + train.minute*60 + 24*60*60
-            var dt = total_sec_train - total_sec_now
+            var totalSecTrain = train.hour*60*60 + train.minute*60 + 24*60*60
+            var dt = totalSecTrain - totalSecNow
             deltaTimes += dt
         }
         // sort and query next 3 trains
         val trains = trainsToday + trainsTomorrow
         //sort by remain time
-        val indices_sorted = deltaTimes.withIndex().sortedBy{it.value}.map{it.index}
-        val deltaTimes_sorted = deltaTimes.sliceArray(indices_sorted)
+        val indicesSorted = deltaTimes.withIndex().sortedBy{it.value}.map{it.index}
+        val deltaTimesSorted = deltaTimes.sliceArray(indicesSorted)
         // query remain time > 0
-        val filter = deltaTimes_sorted.withIndex().filter{it.value > 0}.map{it.index}
-        val indices_sorted_filtered = indices_sorted.slice(filter)
+        val filter = deltaTimesSorted.withIndex().filter{it.value > 0}.map{it.index}
+        val indicesSortedFiltered = indicesSorted.slice(filter)
         // get trains
-        val next3Trains = trains.slice(indices_sorted_filtered).slice(0..2)
+        val next3Trains = trains.slice(indicesSortedFiltered).slice(0..2)
         return next3Trains
     }
 

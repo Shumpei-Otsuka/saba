@@ -16,7 +16,7 @@ import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import java.time.format.DateTimeFormatter
 
-private val TAG = "IntentService"
+private val TAG: String = IntentService::class.java.simpleName
 
 const val ACTION_SERVICE_RESTART = "com.so.saba.action.ACTION_SERVICE_RESTART"
 
@@ -50,7 +50,7 @@ class IntentService : IntentService("IntentService") {
                 val trainSchedule = TrainSchedule(trainScheduleConfig)
                 trainSchedule.loadTrains(resources.assets)
                 // start Foreground
-                val notification = MakeNotification()
+                val notification = makeNotification()
                 startForeground(1, notification)
                 // TODO: replace to timer?
                 while(destroyFlag == false){
@@ -59,7 +59,7 @@ class IntentService : IntentService("IntentService") {
                     val appWidgetManager = AppWidgetManager.getInstance(this)
                     val appWidgetIds = appWidgetManager.getAppWidgetIds(ComponentName(this, AppWidget::class.java))
                     var views = RemoteViews(context.packageName, R.layout.app_widget)
-                    views = UpdateWidgetViews(views, trainSchedule)
+                    views = updateWidgetViews(views, trainSchedule)
                     for (appWidgetId in appWidgetIds){
                         appWidgetManager.updateAppWidget(appWidgetId, views)
                     }
@@ -70,7 +70,7 @@ class IntentService : IntentService("IntentService") {
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun UpdateWidgetViews(views: RemoteViews, trainSchedule: TrainSchedule): RemoteViews {
+    private fun updateWidgetViews(views: RemoteViews, trainSchedule: TrainSchedule): RemoteViews {
         trainSchedule.updateTrainsByDaytype()
         // set TrainScheduleConfig
         views.setTextViewText(R.id.appwidget_textStation, trainSchedule.trainScheduleConfig.station)
@@ -85,7 +85,7 @@ class IntentService : IntentService("IntentService") {
         return views
     }
 
-    private fun MakeNotification(): Notification {
+    private fun makeNotification(): Notification {
         //利用者への通知をサービス作成から５秒以内に作成（IntentServiceの仕様上必須）
         val id = "SABA_Widget_foreground"
         val name = "SABAの時刻表ウィジェット"
