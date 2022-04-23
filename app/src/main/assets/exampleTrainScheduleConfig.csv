@@ -1,0 +1,5 @@
+station,line,destination,csv_weekday,csv_holiday
+東京,東海道線,大阪方面,exampleTrainScheduleWeekday.csv,exampleTrainScheduleHoliday.csv
+東京,中央本線,名古屋方面,exampleTrainScheduleWeekday.csv,exampleTrainScheduleHoliday.csv
+品川,東海道線,大阪方面,exampleTrainScheduleWeekday.csv,exampleTrainScheduleHoliday.csv
+品川,東海道線,東京方面,exampleTrainScheduleWeekday.csv,exampleTrainScheduleHoliday.csv
