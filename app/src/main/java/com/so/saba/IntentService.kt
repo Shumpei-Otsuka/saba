@@ -76,12 +76,18 @@ class IntentService : IntentService("IntentService") {
         views.setTextViewText(R.id.appwidget_textStation, trainSchedule.trainScheduleConfig.station)
         views.setTextViewText(R.id.appwidget_textLine, trainSchedule.trainScheduleConfig.line)
         views.setTextViewText(R.id.appwidget_textDestination, trainSchedule.trainScheduleConfig.destination)
-        // set Next train
-        val trainNext = trainSchedule.getNextTrain()
-        val remainTimeString = trainSchedule.calcRemainTime(trainNext)
-        views.setTextViewText(R.id.appwidget_textNext0DepartTime, "%02d:%02d".format(trainNext.hour, trainNext.minute))
-        views.setTextViewText(R.id.appwidget_textNext0RemainMinute, remainTimeString.remainMinute)
-        views.setTextViewText(R.id.appwidget_textNext0RemainSecond, remainTimeString.remainSecond)
+        // set Next 3 trains
+        val trainsNext3 = trainSchedule.getNext3Trains()
+        val idsDepartTime = arrayOf(R.id.appwidget_textNext0DepartTime, R.id.appwidget_textNext1DepartTime, R.id.appwidget_textNext2DepartTime)
+        val idsRemainMinute = arrayOf(R.id.appwidget_textNext0RemainMinute, R.id.appwidget_textNext1RemainMinute, R.id.appwidget_textNext2RemainMinute)
+        val idsRemainSecond = arrayOf(R.id.appwidget_textNext0RemainSecond, R.id.appwidget_textNext1RemainSecond, R.id.appwidget_textNext2RemainSecond)
+        for (trainIndex in 0..2) {
+            var trainNext = trainsNext3[trainIndex]
+            var remainTimeString = trainSchedule.calcRemainTime(trainNext)
+            views.setTextViewText(idsDepartTime[trainIndex], "%02d:%02d".format(trainNext.hour, trainNext.minute))
+            views.setTextViewText(idsRemainMinute[trainIndex], remainTimeString.remainMinute)
+            views.setTextViewText(idsRemainSecond[trainIndex], remainTimeString.remainSecond)
+        }
         return views
     }
 
