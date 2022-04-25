@@ -22,6 +22,7 @@ const val ACTION_SERVICE_RESTART = "com.so.saba.action.ACTION_SERVICE_RESTART"
 
 class IntentService : IntentService("IntentService") {
     var destroyFlag = false
+    var restartFlag = true
     var trainScheduleConfig = TrainScheduleConfig()
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -29,10 +30,12 @@ class IntentService : IntentService("IntentService") {
         Log.d(TAG, "onDestroy called.")
         destroyFlag = true
         //start IntentServiceRestarter
-        var intent: Intent = Intent(this, com.so.saba.IntentServiceRestarter::class.java)
-        intent.apply {action = ACTION_SERVICE_RESTART}
-        intent.putExtra(TRAIN_SCHEDULE_CONFIG, trainScheduleConfig)
-        startForegroundService(intent)
+        if(restartFlag == true) {
+            var intent: Intent = Intent(this, com.so.saba.IntentServiceRestarter::class.java)
+            intent.apply {action = ACTION_SERVICE_RESTART}
+            intent.putExtra(TRAIN_SCHEDULE_CONFIG, trainScheduleConfig)
+            startForegroundService(intent)
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -65,6 +68,10 @@ class IntentService : IntentService("IntentService") {
                     }
                     Thread.sleep(1000)
                 }
+            }
+            ACTION_SERVICE_STOP -> {
+                restartFlag = false
+                Log.d(TAG, "Service Stop Called.")
             }
         }
     }

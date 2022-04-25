@@ -14,6 +14,7 @@ import java.time.LocalDateTime
 
 const val ACTION_SET_WIDGET_TRAIN_SCHEDULE_CONFIG = "com.so.saba.action.ACTION_SET_WIDGET_TRAIN_SCHEDULE_CONFIG"
 const val ACTION_SERVICE_START = "com.so.saba.action.SERVICE_START"
+const val ACTION_SERVICE_STOP = "com.so.saba.action.SERVICE_STOP"
 
 private val TAG: String = DisplayTrainScheduleActivity::class.java.simpleName
 
@@ -36,12 +37,6 @@ class DisplayTrainScheduleActivity : AppCompatActivity() {
     /** Called when the user taps the Send button */
     @RequiresApi(Build.VERSION_CODES.O)
     fun startService(view: View) {
-        /*
-        // Stop Service TODO: need this code?
-        val intentService: Intent = Intent(this, IntentService::class.java)
-        stopService(intentService)
-        */
-
         val intent = Intent(this, AppWidget::class.java)
         intent.putExtra(TRAIN_SCHEDULE_CONFIG, trainScheduleConfig)
         intent.apply {action = ACTION_SET_WIDGET_TRAIN_SCHEDULE_CONFIG}
@@ -54,6 +49,12 @@ class DisplayTrainScheduleActivity : AppCompatActivity() {
         intentStartService.putExtra(TRAIN_SCHEDULE_CONFIG, trainScheduleConfig)
         startForegroundService(intentStartService)
         //startService(intentStartService)
+    }
+
+    fun stopService(view: View) {
+        val intent: Intent = Intent(this, IntentService::class.java)
+        intent.apply {action = ACTION_SERVICE_STOP}
+        stopService(intent)
     }
 }
 
