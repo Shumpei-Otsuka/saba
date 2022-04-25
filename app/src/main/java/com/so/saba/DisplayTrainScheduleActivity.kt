@@ -37,11 +37,13 @@ class DisplayTrainScheduleActivity : AppCompatActivity() {
     /** Called when the user taps the Send button */
     @RequiresApi(Build.VERSION_CODES.O)
     fun startService(view: View) {
+        /*
         val intent = Intent(this, AppWidget::class.java)
         intent.putExtra(TRAIN_SCHEDULE_CONFIG, trainScheduleConfig)
         intent.apply {action = ACTION_SET_WIDGET_TRAIN_SCHEDULE_CONFIG}
         // TODO: update Widget station config often fail. Conflict IntentService below.
         sendBroadcast(intent)
+        */
 
         // Start Service
         val intentStartService: Intent = Intent(this, IntentService::class.java)

@@ -28,9 +28,12 @@ class AppWidget : AppWidgetProvider() {
     ) {
         Log.d(TAG, "onUpdate called.")
         // There may be multiple widgets active, so update all of them
+        // TODO: Widget updated by IntentService. Remove this code.
+        /*
         for (appWidgetId in appWidgetIds) {
             updateAppWidget(context, appWidgetManager, appWidgetId)
         }
+         */
     }
 
     override fun onEnabled(context: Context) {
@@ -89,6 +92,7 @@ class AppWidget : AppWidgetProvider() {
 }
 
 // TODO: Remove This
+/*
 @RequiresApi(Build.VERSION_CODES.O)
 internal fun updateAppWidget(context: Context, appWidgetManager: AppWidgetManager, appWidgetId: Int) {
     val widgetText = context.getString(R.string.appwidget_text)
@@ -98,6 +102,7 @@ internal fun updateAppWidget(context: Context, appWidgetManager: AppWidgetManage
     // Instruct the widget manager to update the widget
     appWidgetManager.updateAppWidget(appWidgetId, views)
 }
+ */
 
 internal fun updateAppWidgetTrainScheduleConfig(context: Context, appWidgetManager: AppWidgetManager, appWidgetId: Int, views: RemoteViews,trainScheduleConfig: TrainScheduleConfig) {
     //val views = RemoteViews(context.packageName, R.layout.app_widget)
