@@ -5,6 +5,7 @@
       <map>
         <entry key="app/src/main/res/drawable-v21/app_widget_background.xml" value="0.23072916666666668" />
         <entry key="app/src/main/res/layout/activity_display_message.xml" value="0.21458333333333332" />
+        <entry key="app/src/main/res/layout/activity_display_train_schedule.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="app/src/main/res/layout/app_widget.xml" value="0.5" />
       </map>
