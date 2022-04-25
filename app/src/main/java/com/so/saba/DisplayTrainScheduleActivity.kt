@@ -35,7 +35,7 @@ class DisplayTrainScheduleActivity : AppCompatActivity() {
 
     /** Called when the user taps the Send button */
     @RequiresApi(Build.VERSION_CODES.O)
-    fun sendStation2Widget(view: View) {
+    fun startService(view: View) {
         /*
         // Stop Service TODO: need this code?
         val intentService: Intent = Intent(this, IntentService::class.java)
