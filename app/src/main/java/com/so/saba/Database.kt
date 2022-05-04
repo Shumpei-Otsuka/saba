@@ -1,8 +1,34 @@
 package com.so.saba
 
+import android.content.Context
 import androidx.room.*
 
-//データベースのテーブル定義
+
+//Databaseの定義
+@Database(entities = arrayOf(TimeScheduleTable::class), version = 1, exportSchema = false)
+abstract class AppDatabase : RoomDatabase() {
+    abstract fun TimeScheduleTableDao(): TimeScheduleTableDao
+
+    companion object {
+        val DB_NAME = "application.db"
+        private lateinit var instance: AppDatabase
+
+        //instanceの取得
+        fun getInstance(context: Context): AppDatabase {
+            if (!Companion::instance.isInitialized) {
+                instance = Room.databaseBuilder(
+                    context.applicationContext,
+                    AppDatabase::class.java,
+                    DB_NAME
+                ).fallbackToDestructiveMigration().build()
+                //fallbackはmigration書くの面倒で入れているだけなので、本番環境では.buildのみでいい
+            }
+            return instance
+        }
+    }
+}
+
+//Database内の時刻表テーブル定義
 @Entity
 data class TimeScheduleTable(
     @PrimaryKey(autoGenerate = true) val id: Int,
