@@ -66,4 +66,6 @@ dependencies {
     testImplementation("androidx.room:room-testing:$roomVersion")
     // optional - Paging 3 Integration
     implementation("androidx.room:room-paging:2.5.0-alpha01")
+    //coroutineの実装のため
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2'
 }
