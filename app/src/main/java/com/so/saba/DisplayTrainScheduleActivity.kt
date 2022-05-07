@@ -7,6 +7,7 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.TextView
 import androidx.annotation.RequiresApi
 import java.io.BufferedReader
 import java.io.InputStreamReader
@@ -32,6 +33,9 @@ class DisplayTrainScheduleActivity : AppCompatActivity() {
         //val message = intent.getStringExtra(EXTRA_MESSAGE) //Example
         trainSchedule = TrainSchedule(trainScheduleConfig)
         trainSchedule.loadTrains(resources.assets)
+        // update Table Format Train Schedule
+        val tableTexts = trainSchedule.getTableFormatString(start = 0, end = 23)
+        updateTable(tableTexts)
     }
 
     /** Called when the user taps the Send button */
@@ -57,6 +61,19 @@ class DisplayTrainScheduleActivity : AppCompatActivity() {
         val intent: Intent = Intent(this, IntentService::class.java)
         intent.apply {action = ACTION_SERVICE_STOP}
         stopService(intent)
+    }
+
+    private fun updateTable(tableTexts: Array<String>) {
+        val ids = listOf(R.id.tableRow0, R.id.tableRow1, R.id.tableRow2, R.id.tableRow3, R.id.tableRow4,
+            R.id.tableRow5, R.id.tableRow6, R.id.tableRow7, R.id.tableRow8, R.id.tableRow9, R.id.tableRow10,
+            R.id.tableRow11, R.id.tableRow12, R.id.tableRow13, R.id.tableRow14, R.id.tableRow15, R.id.tableRow16,
+            R.id.tableRow17, R.id.tableRow18, R.id.tableRow19, R.id.tableRow20, R.id.tableRow21, R.id.tableRow22,
+            R.id.tableRow23)
+        for (i in 0..23) {
+            findViewById<TextView>(ids[i]).apply {
+                text = tableTexts[i]
+            }
+        }
     }
 }
 
@@ -211,6 +228,21 @@ class TrainSchedule(val trainScheduleConfig: TrainScheduleConfig) {
         val dtMinute = dt / 60
         val dtSecond = dt % 60
         return RemainTimeString(dtMinute.toString(), dtSecond.toString())
+    }
+
+    fun getTableFormatString(start: Int, end: Int): Array<String> {
+        val trains = trainsWeekday
+        var texts = arrayOf<String>()
+        for (hour in start..end) {
+            var text = ""
+            for (train in trains) {
+                if(train.hour == hour) {
+                    text += train.minute.toString() + " "
+                }
+            }
+            texts += text
+        }
+        return texts
     }
 }
 
