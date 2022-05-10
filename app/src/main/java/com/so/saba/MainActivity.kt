@@ -42,7 +42,12 @@ class MainActivity : AppCompatActivity() ,CoroutineScope{
     fun sendMessage(view: View) {
         Log.d(TAG, "sendMessage called.")
         // TODO: Example, must be replace
-        val trainScheduleConfig = TrainScheduleConfig("東京", "東海道線", "大阪", "exampleTrainScheduleWeekday.csv", "exampleTrainScheduleHoliday.csv")
+        val station = "東京"
+        val line = "東海道線"
+        val destination = "大阪"
+        val weekdayPath = "exampleTrainScheduleWeekday.csv"
+        val holidayPath = "exampleTrainScheduleHoliday.csv"
+        val trainScheduleConfig = TrainScheduleConfig(station, line, destination, weekdayPath, holidayPath)
         val intent = Intent(this, DisplayTrainScheduleActivity::class.java).apply {
             putExtra(TRAIN_SCHEDULE_CONFIG, trainScheduleConfig)
         }
@@ -96,6 +101,31 @@ class MainActivity : AppCompatActivity() ,CoroutineScope{
             }
         }
     }
+
+    private suspend fun getRouteFromDB(stationName :String , db :AppDatabase): List<String> {
+        val returnList : List<String>
+        withContext(Dispatchers.IO){
+            returnList = db.TimeScheduleTableDao().getLineByStation(stationName)
+        }
+        return returnList
+    }
+
+    private suspend fun getDestinationFromDB(stationName :String , routeName :String , db :AppDatabase): List<String> {
+        val returnList : List<String>
+        withContext(Dispatchers.IO){
+            returnList = db.TimeScheduleTableDao().getDestinationByStationLines(stationName,routeName)
+        }
+        return returnList
+    }
+
+    private suspend fun getCsvNameFromDB(stationName :String , routeName :String , DestinationName :String , db :AppDatabase): List<String> {
+        val returnList : List<String>
+        withContext(Dispatchers.IO){
+            returnList = db.TimeScheduleTableDao().getCsvnameByInfo(stationName,routeName,DestinationName)
+        }
+        return returnList
+    }
+
 }
 
 data class TrainScheduleConfig(

@@ -57,7 +57,7 @@ interface TimeScheduleTableDao {
     //駅名・路線から方向のリストを取得
     fun getDestinationByStationLines(station: String,line:String): List<String>
 
-    @Query("SELECT DISTINCT weekdayPath FROM TimeScheduleTable WHERE station = :station AND line = :line AND destination= :destination")
+    @Query("SELECT DISTINCT weekdayPath holidayPath FROM TimeScheduleTable WHERE station = :station AND line = :line AND destination= :destination")
     //駅名・路線・方向から時刻表のcsvファイル名を取得
     fun getCsvnameByInfo(station: String,line: String?,destination: String): List<String>
 
