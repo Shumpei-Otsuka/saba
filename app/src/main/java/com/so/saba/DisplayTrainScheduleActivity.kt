@@ -34,6 +34,10 @@ class DisplayTrainScheduleActivity : AppCompatActivity() {
         trainSchedule = TrainSchedule(trainScheduleConfig)
         trainSchedule.loadTrains(resources.assets)
         // update Table Format Train Schedule
+        val trainScheduleConfigText = trainScheduleConfig.station + "駅, " + trainScheduleConfig.line + ", " + trainScheduleConfig.destination
+        findViewById<TextView>(R.id.trainScheduleConfig).apply {
+            text = trainScheduleConfigText
+        }
         val tableTexts = trainSchedule.getTableFormatString(start = 0, end = 23)
         updateTable(tableTexts)
     }
