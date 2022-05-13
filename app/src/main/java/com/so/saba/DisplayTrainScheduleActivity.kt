@@ -238,10 +238,15 @@ class TrainSchedule(val trainScheduleConfig: TrainScheduleConfig) {
         val trains = trainsWeekday
         var texts = arrayOf<String>()
         for (hour in start..end) {
-            var text = ""
+            var text = " "
             for (train in trains) {
-                if(train.hour == hour) {
-                    text += train.minute.toString() + " "
+                if((train.hour == hour)) {
+                    if(train.minute < 10){
+                        text += "  " + train.minute.toString() + "  "
+                    }
+                    else{
+                        text += train.minute.toString() + "  "
+                    }
                 }
             }
             texts += text
