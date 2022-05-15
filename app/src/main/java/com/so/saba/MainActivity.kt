@@ -79,13 +79,16 @@ class MainActivity : AppCompatActivity(), CoroutineScope{
         val destination = findViewById<Spinner>(R.id.destinationSpinner).selectedItem.toString()
 
         //csv名をDatabaseより取得
-        var weekdayPath = "exampleTrainScheduleWeekday.csv"
-        var holidayPath = "exampleTrainScheduleHoliday.csv"
+        var weekdayPath = ""
+        var holidayPath = ""
         var csvNamePair = listOf<TrainScheduleConfig>()
-        launch{
+        GlobalScope.launch{
             csvNamePair = getCsvNamePair(db)
             weekdayPath = csvNamePair[0].weekdayPath
             holidayPath = csvNamePair[0].holidayPath
+        }
+        while(weekdayPath == ""){
+            Thread.sleep(10)
         }
         val trainScheduleConfig = TrainScheduleConfig(station, line, destination, weekdayPath, holidayPath)
         val intent = Intent(this, DisplayTrainScheduleActivity::class.java).apply {
