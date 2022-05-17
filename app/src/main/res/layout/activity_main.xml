@@ -108,7 +108,7 @@
         android:id="@+id/releaseVersionText"
         android:layout_width="100dp"
         android:layout_height="20dp"
-        android:text="version1.2.0"
+        android:text="@string/app_version"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.928"
