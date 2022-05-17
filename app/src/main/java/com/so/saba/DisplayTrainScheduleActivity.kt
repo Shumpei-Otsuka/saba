@@ -83,7 +83,10 @@ class DisplayTrainScheduleActivity : AppCompatActivity() {
 
 data class TrainData(
     val hour: Int,
-    val minute: Int
+    val minute: Int,
+    val destination: String = "",
+    val train_type: String = "",
+    val note: String = ""
 )
 
 data class RemainTimeString(
@@ -118,7 +121,7 @@ class TrainSchedule(val trainScheduleConfig: TrainScheduleConfig) {
                 break
             }
             var row = line.split(",")
-            var train = TrainData(row[0].toInt(), row[1].toInt())
+            var train = TrainData(row[0].toInt(), row[1].toInt(), row[2], row[3], row[4])
             trains += train
         }
         return trains
