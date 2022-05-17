@@ -52,6 +52,10 @@ class DisplayTrainScheduleActivity : AppCompatActivity() {
         // TODO: update Widget station config often fail. Conflict IntentService below.
         sendBroadcast(intent)
         */
+        // Stop Old Service
+        val intent: Intent = Intent(this, IntentService::class.java)
+        intent.apply {action = ACTION_SERVICE_STOP}
+        stopService(intent)
 
         // Start Service
         val intentStartService: Intent = Intent(this, IntentService::class.java)
