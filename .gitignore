@@ -15,3 +15,4 @@
 local.properties
 app/src/main/assets/*.csv
 !app/src/main/assets/example*
+app/release/*.aab
