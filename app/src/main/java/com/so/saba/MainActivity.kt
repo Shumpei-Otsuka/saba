@@ -100,9 +100,9 @@ class MainActivity : AppCompatActivity(), CoroutineScope{
 
     suspend fun updateLineSpinnerList(db:AppDatabase){
         val stationName = findViewById<EditText>(R.id.registeredStation).text.toString()
-        var routeList:List<String> = getLineFromDB(stationName, db)
+        val routeList:List<String> = getLineFromDB(stationName, db)
         val routeSpinner = findViewById<Spinner>(R.id.routespinner)
-        var adapter = ArrayAdapter(
+        val adapter = ArrayAdapter(
             this,
             android.R.layout.simple_spinner_item,
             routeList
@@ -112,9 +112,9 @@ class MainActivity : AppCompatActivity(), CoroutineScope{
     suspend fun updateDestinationSpinnerList(db:AppDatabase){
         val stationName = findViewById<EditText>(R.id.registeredStation).text.toString()
         val lineName = findViewById<Spinner>(R.id.routespinner).selectedItem.toString()
-        var destinationList = getDestinationFromDB(stationName, lineName, db)
+        val destinationList = getDestinationFromDB(stationName, lineName, db)
         val destinationSpinner = findViewById<Spinner>(R.id.destinationSpinner)
-        var adapter = ArrayAdapter(
+        val adapter = ArrayAdapter(
             this,
             android.R.layout.simple_spinner_item,
             destinationList
