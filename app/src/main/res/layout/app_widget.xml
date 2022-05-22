@@ -5,274 +5,61 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/appwidget_textStation"
-        android:layout_width="50dp"
-        android:layout_height="18dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        app:autoSizeTextType="uniform"
-        app:autoSizeMinTextSize="10sp"
-        app:autoSizeMaxTextSize="100sp"
-        app:autoSizeStepGranularity="2sp"
-        android:lines="1"
-        android:text="A駅" />
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/appwidget_textLine"
-        android:layout_width="50dp"
-        android:layout_height="18dp"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentTop="true"
-        app:autoSizeTextType="uniform"
-        app:autoSizeMinTextSize="10sp"
-        app:autoSizeMaxTextSize="100sp"
-        app:autoSizeStepGranularity="2sp"
-        android:lines="1"
-        android:text="A線" />
+        <TextView
+            android:id="@+id/appwidget_row1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            app:autoSizeTextType="uniform"
+            app:autoSizeMinTextSize="10sp"
+            app:autoSizeMaxTextSize="100sp"
+            app:autoSizeStepGranularity="2sp"
+            android:lines="1"
+            android:text="〇〇駅　〇〇線　〇〇方面" />
 
-    <TextView
-        android:id="@+id/appwidget_textDestination"
-        android:layout_width="50dp"
-        android:layout_height="18dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        app:autoSizeTextType="uniform"
-        app:autoSizeMinTextSize="10sp"
-        app:autoSizeMaxTextSize="100sp"
-        app:autoSizeStepGranularity="2sp"
-        android:lines="1"
-        android:text="A方面" />
+        <TextView
+            android:id="@+id/appwidget_row2"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            app:autoSizeTextType="uniform"
+            app:autoSizeMinTextSize="10sp"
+            app:autoSizeMaxTextSize="100sp"
+            app:autoSizeStepGranularity="2sp"
+            android:lines="1"
+            android:text="先発　　普通　00:00　あと 0分 0秒" />
 
-    <TextView
-        android:id="@+id/appwidget_textNext0"
-        android:layout_width="50dp"
-        android:layout_height="18dp"
-        android:layout_below="@+id/appwidget_textStation"
-        android:layout_alignParentStart="true"
-        app:autoSizeTextType="uniform"
-        app:autoSizeMinTextSize="10sp"
-        app:autoSizeMaxTextSize="100sp"
-        app:autoSizeStepGranularity="2sp"
-        android:lines="1"
-        android:text="先発" />
+        <TextView
+            android:id="@+id/appwidget_row3"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            app:autoSizeTextType="uniform"
+            app:autoSizeMinTextSize="10sp"
+            app:autoSizeMaxTextSize="100sp"
+            app:autoSizeStepGranularity="2sp"
+            android:lines="1"
+            android:text="次発　　普通　00:00　あと 0分 0秒" />
 
-    <TextView
-        android:id="@+id/appwidget_textNext0DepartTime"
-        android:layout_width="50dp"
-        android:layout_height="18dp"
-        android:layout_below="@+id/appwidget_textLine"
-        android:layout_centerHorizontal="true"
-        app:autoSizeTextType="uniform"
-        app:autoSizeMinTextSize="10sp"
-        app:autoSizeMaxTextSize="100sp"
-        app:autoSizeStepGranularity="2sp"
-        android:lines="1"
-        android:text="00:00" />
-
-    <TextView
-        android:id="@+id/appwidget_textNext0RemainMinute"
-        android:layout_width="20dp"
-        android:layout_height="18dp"
-        android:layout_below="@+id/appwidget_textDestination"
-        android:layout_toLeftOf="@+id/appwidget_textNext0Minute"
-        app:autoSizeTextType="uniform"
-        app:autoSizeMinTextSize="10sp"
-        app:autoSizeMaxTextSize="100sp"
-        app:autoSizeStepGranularity="2sp"
-        android:lines="1"
-        android:text="10" />
-
-    <TextView
-        android:id="@+id/appwidget_textNext0Minute"
-        android:layout_width="20dp"
-        android:layout_height="18dp"
-        android:layout_below="@+id/appwidget_textDestination"
-        android:layout_toLeftOf="@+id/appwidget_textNext0RemainSecond"
-        app:autoSizeTextType="uniform"
-        app:autoSizeMinTextSize="10sp"
-        app:autoSizeMaxTextSize="100sp"
-        app:autoSizeStepGranularity="2sp"
-        android:lines="1"
-        android:text="分" />
-
-    <TextView
-        android:id="@+id/appwidget_textNext0RemainSecond"
-        android:layout_width="20dp"
-        android:layout_height="18dp"
-        android:layout_below="@+id/appwidget_textDestination"
-        android:layout_toLeftOf="@+id/appwidget_textNext0Second"
-        app:autoSizeTextType="uniform"
-        app:autoSizeMinTextSize="10sp"
-        app:autoSizeMaxTextSize="100sp"
-        app:autoSizeStepGranularity="2sp"
-        android:lines="1"
-        android:text="20" />
-    <TextView
-        android:id="@+id/appwidget_textNext0Second"
-        android:layout_width="20dp"
-        android:layout_height="18dp"
-        android:layout_below="@+id/appwidget_textDestination"
-        android:layout_alignParentEnd="true"
-        app:autoSizeTextType="uniform"
-        app:autoSizeMinTextSize="10sp"
-        app:autoSizeMaxTextSize="100sp"
-        app:autoSizeStepGranularity="2sp"
-        android:lines="1"
-        android:text="秒" />
-
-    <TextView
-        android:id="@+id/appwidget_textNext1"
-        android:layout_width="50dp"
-        android:layout_height="18dp"
-        android:layout_below="@+id/appwidget_textNext0"
-        android:layout_alignParentStart="true"
-        app:autoSizeTextType="uniform"
-        app:autoSizeMinTextSize="10sp"
-        app:autoSizeMaxTextSize="100sp"
-        app:autoSizeStepGranularity="2sp"
-        android:lines="1"
-        android:text="次発" />
-
-    <TextView
-        android:id="@+id/appwidget_textNext1DepartTime"
-        android:layout_width="50dp"
-        android:layout_height="18dp"
-        android:layout_below="@+id/appwidget_textNext0DepartTime"
-        android:layout_centerHorizontal="true"
-        app:autoSizeTextType="uniform"
-        app:autoSizeMinTextSize="10sp"
-        app:autoSizeMaxTextSize="100sp"
-        app:autoSizeStepGranularity="2sp"
-        android:lines="1"
-        android:text="00:00" />
-
-    <TextView
-        android:id="@+id/appwidget_textNext1RemainMinute"
-        android:layout_width="20dp"
-        android:layout_height="18dp"
-        android:layout_toLeftOf="@+id/appwidget_textNext1Minute"
-        android:layout_below="@+id/appwidget_textNext0Second"
-        app:autoSizeTextType="uniform"
-        app:autoSizeMinTextSize="10sp"
-        app:autoSizeMaxTextSize="100sp"
-        app:autoSizeStepGranularity="2sp"
-        android:lines="1"
-        android:text="10" />
-
-    <TextView
-        android:id="@+id/appwidget_textNext1Minute"
-        android:layout_width="20dp"
-        android:layout_height="18dp"
-        android:layout_toLeftOf="@+id/appwidget_textNext1RemainSecond"
-        android:layout_below="@+id/appwidget_textNext0Second"
-        app:autoSizeTextType="uniform"
-        app:autoSizeMinTextSize="10sp"
-        app:autoSizeMaxTextSize="100sp"
-        app:autoSizeStepGranularity="2sp"
-        android:lines="1"
-        android:text="分" />
-
-    <TextView
-        android:id="@+id/appwidget_textNext1RemainSecond"
-        android:layout_width="20dp"
-        android:layout_height="18dp"
-        android:layout_toLeftOf="@+id/appwidget_textNext1Second"
-        android:layout_below="@+id/appwidget_textNext0Second"
-        app:autoSizeTextType="uniform"
-        app:autoSizeMinTextSize="10sp"
-        app:autoSizeMaxTextSize="100sp"
-        app:autoSizeStepGranularity="2sp"
-        android:lines="1"
-        android:text="20" />
-    <TextView
-        android:id="@+id/appwidget_textNext1Second"
-        android:layout_width="20dp"
-        android:layout_height="18dp"
-        android:layout_below="@+id/appwidget_textNext0Second"
-        android:layout_alignParentEnd="true"
-        app:autoSizeTextType="uniform"
-        app:autoSizeMinTextSize="10sp"
-        app:autoSizeMaxTextSize="100sp"
-        app:autoSizeStepGranularity="2sp"
-        android:lines="1"
-        android:text="秒" />
-
-    <TextView
-        android:id="@+id/appwidget_textNext2"
-        android:layout_width="50dp"
-        android:layout_height="18dp"
-        android:layout_below="@+id/appwidget_textNext1"
-        android:layout_alignParentStart="true"
-        app:autoSizeTextType="uniform"
-        app:autoSizeMinTextSize="10sp"
-        app:autoSizeMaxTextSize="100sp"
-        app:autoSizeStepGranularity="2sp"
-        android:lines="1"
-        android:text="次々発" />
-
-    <TextView
-        android:id="@+id/appwidget_textNext2DepartTime"
-        android:layout_width="50dp"
-        android:layout_height="18dp"
-        android:layout_below="@+id/appwidget_textNext1DepartTime"
-        android:layout_centerHorizontal="true"
-        app:autoSizeTextType="uniform"
-        app:autoSizeMinTextSize="10sp"
-        app:autoSizeMaxTextSize="100sp"
-        app:autoSizeStepGranularity="2sp"
-        android:lines="1"
-        android:text="00:00" />
-
-    <TextView
-        android:id="@+id/appwidget_textNext2RemainMinute"
-        android:layout_width="20dp"
-        android:layout_height="18dp"
-        android:layout_below="@+id/appwidget_textNext1RemainMinute"
-        android:layout_toLeftOf="@+id/appwidget_textNext2Minute"
-        app:autoSizeTextType="uniform"
-        app:autoSizeMinTextSize="10sp"
-        app:autoSizeMaxTextSize="100sp"
-        app:autoSizeStepGranularity="2sp"
-        android:lines="1"
-        android:text="10" />
-
-    <TextView
-        android:id="@+id/appwidget_textNext2Minute"
-        android:layout_width="20dp"
-        android:layout_height="18dp"
-        android:layout_below="@+id/appwidget_textNext1Minute"
-        android:layout_toLeftOf="@+id/appwidget_textNext2RemainSecond"
-        app:autoSizeTextType="uniform"
-        app:autoSizeMinTextSize="10sp"
-        app:autoSizeMaxTextSize="100sp"
-        app:autoSizeStepGranularity="2sp"
-        android:lines="1"
-        android:text="分" />
-
-    <TextView
-        android:id="@+id/appwidget_textNext2RemainSecond"
-        android:layout_width="20dp"
-        android:layout_height="18dp"
-        android:layout_below="@+id/appwidget_textNext1RemainSecond"
-        android:layout_toLeftOf="@+id/appwidget_textNext2Second"
-        app:autoSizeTextType="uniform"
-        app:autoSizeMinTextSize="10sp"
-        app:autoSizeMaxTextSize="100sp"
-        app:autoSizeStepGranularity="2sp"
-        android:lines="1"
-        android:text="20" />
-
-    <TextView
-        android:id="@+id/appwidget_textNext2Second"
-        android:layout_width="20dp"
-        android:layout_height="18dp"
-        android:layout_below="@+id/appwidget_textNext1Second"
-        android:layout_alignParentEnd="true"
-        app:autoSizeTextType="uniform"
-        app:autoSizeMinTextSize="10sp"
-        app:autoSizeMaxTextSize="100sp"
-        app:autoSizeStepGranularity="2sp"
-        android:lines="1"
-        android:text="秒" />
+        <TextView
+            android:id="@+id/appwidget_row4"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            app:autoSizeTextType="uniform"
+            app:autoSizeMinTextSize="10sp"
+            app:autoSizeMaxTextSize="100sp"
+            app:autoSizeStepGranularity="2sp"
+            android:lines="1"
+            android:text="次々発　普通　00:00　あと 0分 0秒" />
+    </LinearLayout>
 </RelativeLayout>

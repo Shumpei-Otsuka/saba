@@ -80,20 +80,24 @@ class IntentService : IntentService("IntentService") {
     private fun updateWidgetViews(views: RemoteViews, trainSchedule: TrainSchedule): RemoteViews {
         trainSchedule.updateTrainsByDaytype()
         // set TrainScheduleConfig
-        views.setTextViewText(R.id.appwidget_textStation, trainSchedule.trainScheduleConfig.station)
-        views.setTextViewText(R.id.appwidget_textLine, trainSchedule.trainScheduleConfig.line)
-        views.setTextViewText(R.id.appwidget_textDestination, trainSchedule.trainScheduleConfig.destination)
+        var row1 = "%s駅　%s　%s".format(trainSchedule.trainScheduleConfig.station,
+            trainSchedule.trainScheduleConfig.line,
+            trainSchedule.trainScheduleConfig.destination)
+        views.setTextViewText(R.id.appwidget_row1, row1)
         // set Next 3 trains
         val trainsNext3 = trainSchedule.getNext3Trains()
-        val idsDepartTime = arrayOf(R.id.appwidget_textNext0DepartTime, R.id.appwidget_textNext1DepartTime, R.id.appwidget_textNext2DepartTime)
-        val idsRemainMinute = arrayOf(R.id.appwidget_textNext0RemainMinute, R.id.appwidget_textNext1RemainMinute, R.id.appwidget_textNext2RemainMinute)
-        val idsRemainSecond = arrayOf(R.id.appwidget_textNext0RemainSecond, R.id.appwidget_textNext1RemainSecond, R.id.appwidget_textNext2RemainSecond)
+        val idsRows = arrayOf(R.id.appwidget_row2, R.id.appwidget_row3, R.id.appwidget_row4)
+        val suffix = arrayOf("　先発", "　次発", "次々発")
         for (trainIndex in 0..2) {
             var trainNext = trainsNext3[trainIndex]
             var remainTimeString = trainSchedule.calcRemainTime(trainNext)
-            views.setTextViewText(idsDepartTime[trainIndex], "%02d:%02d".format(trainNext.hour, trainNext.minute))
-            views.setTextViewText(idsRemainMinute[trainIndex], remainTimeString.remainMinute)
-            views.setTextViewText(idsRemainSecond[trainIndex], remainTimeString.remainSecond)
+            var row = "%s　%5s　%02d:%02d　あと %2s分 %2s秒".format(suffix[trainIndex],
+                trainNext.train_type,
+                trainNext.hour,
+                trainNext.minute,
+                remainTimeString.remainMinute,
+                remainTimeString.remainSecond)
+            views.setTextViewText(idsRows[trainIndex], row)
         }
         return views
     }

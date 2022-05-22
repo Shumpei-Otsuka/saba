@@ -103,7 +103,7 @@ internal fun updateAppWidget(context: Context, appWidgetManager: AppWidgetManage
     appWidgetManager.updateAppWidget(appWidgetId, views)
 }
  */
-
+/*
 internal fun updateAppWidgetTrainScheduleConfig(context: Context, appWidgetManager: AppWidgetManager, appWidgetId: Int, views: RemoteViews,trainScheduleConfig: TrainScheduleConfig) {
     //val views = RemoteViews(context.packageName, R.layout.app_widget)
     views.setTextViewText(R.id.appwidget_textStation, trainScheduleConfig.station)
@@ -113,3 +113,4 @@ internal fun updateAppWidgetTrainScheduleConfig(context: Context, appWidgetManag
     appWidgetManager.updateAppWidget(appWidgetId, views)
     Log.d(TAG, "update Widget Config")
 }
+ */
