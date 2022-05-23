@@ -90,13 +90,13 @@ class IntentService : IntentService("IntentService") {
         val suffix = arrayOf("　先発", "　次発", "次々発")
         for (trainIndex in 0..2) {
             var trainNext = trainsNext3[trainIndex]
-            var remainTimeString = trainSchedule.calcRemainTime(trainNext)
-            var row = "%s　%5s　%02d:%02d　あと %2s分 %2s秒".format(suffix[trainIndex],
+            var remainTime = trainSchedule.calcRemainTime(trainNext)
+            var row = "%s　%s　%02d:%02d　あと %3d分 %2d秒".format(suffix[trainIndex],
                 trainNext.train_type,
                 trainNext.hour,
                 trainNext.minute,
-                remainTimeString.remainMinute,
-                remainTimeString.remainSecond)
+                remainTime.remainMinute,
+                remainTime.remainSecond)
             views.setTextViewText(idsRows[trainIndex], row)
         }
         return views

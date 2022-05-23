@@ -93,9 +93,9 @@ data class TrainData(
     val note: String = ""
 )
 
-data class RemainTimeString(
-    val remainMinute: String,
-    val remainSecond: String
+data class RemainTime(
+    val remainMinute: Int,
+    val remainSecond: Int
 )
 
 class TrainSchedule(val trainScheduleConfig: TrainScheduleConfig) {
@@ -227,7 +227,7 @@ class TrainSchedule(val trainScheduleConfig: TrainScheduleConfig) {
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    fun calcRemainTime(train: TrainData): RemainTimeString {
+    fun calcRemainTime(train: TrainData): RemainTime {
         val now: LocalDateTime = LocalDateTime.now()
         val totalSecNow = now.hour * 60 * 60 + now.minute * 60 + now.second
         val totalSecTrain = train.hour * 60 * 60 + train.minute * 60
@@ -238,7 +238,7 @@ class TrainSchedule(val trainScheduleConfig: TrainScheduleConfig) {
         }
         val dtMinute = dt / 60
         val dtSecond = dt % 60
-        return RemainTimeString(dtMinute.toString(), dtSecond.toString())
+        return RemainTime(dtMinute, dtSecond)
     }
 
     fun getTableFormatString(start: Int, end: Int): Array<String> {
