@@ -2,7 +2,8 @@
     style="@style/Widget.Saba.AppWidget.Container"
     android:theme="@style/Theme.Saba.AppWidgetContainer"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/transparent">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,6 +20,11 @@
             android:autoSizeMinTextSize="10sp"
             android:autoSizeMaxTextSize="100sp"
             android:autoSizeStepGranularity="2sp"
+            android:textColor="@color/white"
+            android:shadowColor="@color/black"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="2.5"
             android:lines="1"
             android:text="〇〇駅　〇〇線　〇〇方面" />
 
@@ -32,6 +38,11 @@
             android:autoSizeMinTextSize="10sp"
             android:autoSizeMaxTextSize="100sp"
             android:autoSizeStepGranularity="2sp"
+            android:textColor="@color/white"
+            android:shadowColor="@color/black"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="2.5"
             android:lines="1"
             android:text="先発　　普通　00:00　あと 0分 0秒" />
 
@@ -45,6 +56,11 @@
             android:autoSizeMinTextSize="10sp"
             android:autoSizeMaxTextSize="100sp"
             android:autoSizeStepGranularity="2sp"
+            android:textColor="@color/white"
+            android:shadowColor="@color/black"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="2.5"
             android:lines="1"
             android:text="次発　　普通　00:00　あと 0分 0秒" />
 
@@ -58,6 +74,11 @@
             android:autoSizeMinTextSize="10sp"
             android:autoSizeMaxTextSize="100sp"
             android:autoSizeStepGranularity="2sp"
+            android:textColor="@color/white"
+            android:shadowColor="@color/black"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="2.5"
             android:lines="1"
             android:text="次々発　普通　00:00　あと 0分 0秒" />
     </LinearLayout>
