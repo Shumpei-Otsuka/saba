@@ -16,10 +16,10 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:gravity="center"
-            app:autoSizeTextType="uniform"
-            app:autoSizeMinTextSize="10sp"
-            app:autoSizeMaxTextSize="100sp"
-            app:autoSizeStepGranularity="2sp"
+            android:autoSizeTextType="uniform"
+            android:autoSizeMinTextSize="10sp"
+            android:autoSizeMaxTextSize="100sp"
+            android:autoSizeStepGranularity="2sp"
             android:lines="1"
             android:text="〇〇駅　〇〇線　〇〇方面" />
 
@@ -29,10 +29,10 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:gravity="center"
-            app:autoSizeTextType="uniform"
-            app:autoSizeMinTextSize="10sp"
-            app:autoSizeMaxTextSize="100sp"
-            app:autoSizeStepGranularity="2sp"
+            android:autoSizeTextType="uniform"
+            android:autoSizeMinTextSize="10sp"
+            android:autoSizeMaxTextSize="100sp"
+            android:autoSizeStepGranularity="2sp"
             android:lines="1"
             android:text="先発　　普通　00:00　あと 0分 0秒" />
 
@@ -42,10 +42,10 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:gravity="center"
-            app:autoSizeTextType="uniform"
-            app:autoSizeMinTextSize="10sp"
-            app:autoSizeMaxTextSize="100sp"
-            app:autoSizeStepGranularity="2sp"
+            android:autoSizeTextType="uniform"
+            android:autoSizeMinTextSize="10sp"
+            android:autoSizeMaxTextSize="100sp"
+            android:autoSizeStepGranularity="2sp"
             android:lines="1"
             android:text="次発　　普通　00:00　あと 0分 0秒" />
 
@@ -55,10 +55,10 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:gravity="center"
-            app:autoSizeTextType="uniform"
-            app:autoSizeMinTextSize="10sp"
-            app:autoSizeMaxTextSize="100sp"
-            app:autoSizeStepGranularity="2sp"
+            android:autoSizeTextType="uniform"
+            android:autoSizeMinTextSize="10sp"
+            android:autoSizeMaxTextSize="100sp"
+            android:autoSizeStepGranularity="2sp"
             android:lines="1"
             android:text="次々発　普通　00:00　あと 0分 0秒" />
     </LinearLayout>
