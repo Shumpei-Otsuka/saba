@@ -87,7 +87,7 @@ class IntentService : IntentService("IntentService") {
         // set Next 3 trains
         val trainsNext3 = trainSchedule.getNext3Trains()
         val idsRows = arrayOf(R.id.appwidget_row2, R.id.appwidget_row3, R.id.appwidget_row4)
-        val suffix = arrayOf("　先発", "　次発", "次々発")
+        val suffix = arrayOf("先発　", "次発　", "次々発")
         for (trainIndex in 0..2) {
             var trainNext = trainsNext3[trainIndex]
             var remainTime = trainSchedule.calcRemainTime(trainNext)
