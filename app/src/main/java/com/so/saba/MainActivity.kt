@@ -47,24 +47,30 @@ class MainActivity : AppCompatActivity(), CoroutineScope{
         findViewById<Button>(R.id.stationButton).setOnClickListener(object : View.OnClickListener {
             //駅名から路線を検索をするボタンの処理
             override fun onClick(v: View) {
-                launch{
-                    updateLineSpinnerList(db)
+                if(findViewById<EditText>(R.id.registeredStation).text != null){
+                    launch{
+                        updateLineSpinnerList(db)
+                    }
                 }
             }
         })
         findViewById<Button>(R.id.directionButton).setOnClickListener(object : View.OnClickListener {
             //駅名・路線から路線を検索をするボタンの処理
             override fun onClick(v: View) {
-                launch{
-                    updateDestinationSpinnerList(db)
+                if(findViewById<Spinner>(R.id.routespinner).selectedItem != null){
+                    launch{
+                        updateDestinationSpinnerList(db)
+                    }
                 }
             }
         })
         findViewById<Button>(R.id.registButton).setOnClickListener(object : View.OnClickListener {
             //csv名をDatabaseから検索し、次ページへの遷移するボタンの処理
             override fun onClick(v: View) {
-                launch{
-                    sendMessage(db)
+                if(findViewById<Spinner>(R.id.destinationSpinner).selectedItem != null){
+                    launch{
+                        sendMessage(db)
+                    }
                 }
             }
         })
