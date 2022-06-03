@@ -79,15 +79,16 @@ class IntentService : IntentService("IntentService") {
     @RequiresApi(Build.VERSION_CODES.O)
     private fun updateWidgetViews(views: RemoteViews, trainSchedule: TrainSchedule): RemoteViews {
         trainSchedule.updateTrainsByDaytype()
-        // set TrainScheduleConfig
-        var row1 = "%s駅　%s　%s".format(trainSchedule.trainScheduleConfig.station,
-            trainSchedule.trainScheduleConfig.line,
-            trainSchedule.trainScheduleConfig.destination)
-        views.setTextViewText(R.id.appwidget_row1, row1)
         // set Next 3 trains
         val trainsNext3 = trainSchedule.getNext3Trains()
         val idsRows = arrayOf(R.id.appwidget_row2, R.id.appwidget_row3, R.id.appwidget_row4)
         val suffix = arrayOf("先発　", "次発　", "次々発")
+        // set TrainScheduleConfig
+        var row1 = "%s駅　%s　%s　%s".format(trainSchedule.trainScheduleConfig.station,
+            trainSchedule.trainScheduleConfig.line,
+            trainSchedule.trainScheduleConfig.destination,
+            trainsNext3[0].note)
+        views.setTextViewText(R.id.appwidget_row1, row1)
         for (trainIndex in 0..2) {
             var trainNext = trainsNext3[trainIndex]
             var remainTime = trainSchedule.calcRemainTime(trainNext)
