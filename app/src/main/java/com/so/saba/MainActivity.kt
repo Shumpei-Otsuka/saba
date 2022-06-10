@@ -208,13 +208,4 @@ class MainActivity : AppCompatActivity(), CoroutineScope{
         }
         return returnList
     }
-
 }
-
-data class TrainScheduleConfig(
-    var station: String = "",
-    var line: String = "",
-    var destination: String = "",
-    var weekdayPath: String = "",
-    var holidayPath: String = ""
-): Serializable
