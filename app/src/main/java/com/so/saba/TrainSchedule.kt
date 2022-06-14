@@ -1,12 +1,19 @@
 package com.so.saba
 
+import android.app.Activity
+import android.content.Context
 import android.content.res.AssetManager
+import android.content.res.Resources
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
+import com.google.gson.Gson
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.io.Serializable
 import java.time.LocalDateTime
+
+private val TAG: String = TrainSchedule::class.java.simpleName
 
 data class TrainScheduleConfig(
     var station: String = "",
@@ -209,5 +216,66 @@ class TrainSchedule(val trainScheduleConfig: TrainScheduleConfig) {
             texts += text
         }
         return texts
+    }
+}
+
+class TrainSchedules() {
+    var trainScheduleConfigs = TrainScheduleConfigs(arrayOf<TrainScheduleConfig>())
+    var trainSchedules = arrayOf<TrainSchedule>()
+    var indexPrimary = 0
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun add(resources: Resources, trainScheduleConfig: TrainScheduleConfig) {
+        trainScheduleConfigs.value += trainScheduleConfig
+        updateTrainSchedulesFromConfigs(resources)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun delete(resources: Resources, index: Int) {
+        val indicesFiltered = trainScheduleConfigs.value.withIndex().filter{it.index != index}.map{it.index}
+        trainScheduleConfigs.value = trainScheduleConfigs.value.slice(indicesFiltered).toTypedArray()
+        updateTrainSchedulesFromConfigs(resources)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun updateTrainSchedulesFromConfigs(resources: Resources) {
+        trainSchedules = arrayOf<TrainSchedule>()
+        var index = 0
+        for (trainScheduleConfig in trainScheduleConfigs.value) {
+            trainSchedules += TrainSchedule(trainScheduleConfig)
+            trainSchedules[index].loadTrains(resources.assets)
+        }
+    }
+
+    fun saveTrainScheduleConfigs(activity: Activity) {
+        val sharedPref = activity.getPreferences(Context.MODE_PRIVATE) ?: return
+        with (sharedPref.edit()) {
+            val gson = Gson()
+            val trainScheduleConfigsJson = gson.toJson(trainScheduleConfigs)
+            putString("TrainScheduleConfigs", trainScheduleConfigsJson)
+            apply()
+            Log.d(TAG, "save called")
+            Log.d(TAG, trainScheduleConfigsJson)
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun loadTrainScheduleConfigs(activity: Activity, resources: Resources) {
+        val sharedPref = activity.getPreferences(Context.MODE_PRIVATE) ?: return
+        val gson = Gson()
+        val trainScheduleConfigsJson = sharedPref.getString("TrainScheduleConfigs", "Failed")
+        if (trainScheduleConfigsJson.toString() != "Failed") {
+            trainScheduleConfigs = gson.fromJson(trainScheduleConfigsJson, TrainScheduleConfigs::class.java)
+            updateTrainSchedulesFromConfigs(resources)
+        }
+        Log.d(TAG, "load called")
+        Log.d(TAG, trainScheduleConfigsJson.toString())
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun getNext3TrainsPrimary(): List<TrainData> {
+        var trainSchedulePrimary = trainSchedules[indexPrimary]
+        trainSchedulePrimary.updateTrainsByDaytype()
+        return trainSchedulePrimary.getNext3Trains()
     }
 }
