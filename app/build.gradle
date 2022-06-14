@@ -68,4 +68,6 @@ dependencies {
     implementation("androidx.room:room-paging:2.5.0-alpha01")
     //coroutineの実装のため
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2'
+
+    implementation 'com.google.code.gson:gson:2.9.0'
 }
