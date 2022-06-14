@@ -1,17 +1,19 @@
 package com.so.saba
 
-import androidx.appcompat.app.AppCompatActivity
+import android.annotation.SuppressLint
+import android.app.Activity
+import android.content.Context
 import android.content.Intent
-import android.content.res.AssetManager
 import android.os.Build
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.annotation.RequiresApi
-import java.io.BufferedReader
-import java.io.InputStreamReader
-import java.time.LocalDateTime
+import androidx.appcompat.app.AppCompatActivity
+import com.google.gson.Gson
+
 
 const val ACTION_SET_WIDGET_TRAIN_SCHEDULE_CONFIG = "com.so.saba.action.ACTION_SET_WIDGET_TRAIN_SCHEDULE_CONFIG"
 const val ACTION_SERVICE_START = "com.so.saba.action.SERVICE_START"
@@ -23,6 +25,7 @@ class DisplayTrainScheduleActivity : AppCompatActivity() {
 
     var trainScheduleConfig = TrainScheduleConfig()
     var trainSchedule = TrainSchedule(trainScheduleConfig)
+    var trainSchedules = TrainSchedules()
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,6 +43,13 @@ class DisplayTrainScheduleActivity : AppCompatActivity() {
         }
         val tableTexts = trainSchedule.getTableFormatString(start = 0, end = 23)
         updateTable(tableTexts)
+        /*
+        val sharedPref = this.getPreferences(Context.MODE_PRIVATE) ?: return
+        val gson = Gson()
+        val trainScheduleConfigsJson = sharedPref.getString("TrainScheduleConfigs", "Failed")
+        Log.d(TAG, trainScheduleConfigsJson.toString())
+         */
+        trainSchedules.loadTrainScheduleConfigs(this, resources)
     }
 
     /** Called when the user taps the Send button */
@@ -82,5 +92,61 @@ class DisplayTrainScheduleActivity : AppCompatActivity() {
                 text = tableTexts[i]
             }
         }
+    }
+
+    fun save(view: View) {
+        /*
+        val sharedPref = this.getPreferences(Context.MODE_PRIVATE) ?: return
+        /*with (sharedPref.edit()) {
+            putInt("test", 100)
+            apply()
+        }
+         */
+        with (sharedPref.edit()) {
+            val gson = Gson()
+            val trainScheduleConfigsJson = gson.toJson(trainSchedules.trainScheduleConfigs)
+            putString("TrainScheduleConfigs", trainScheduleConfigsJson)
+            Log.d(TAG, "save called")
+            Log.d(TAG, trainScheduleConfigsJson)
+            putString("station", trainScheduleConfig.station)
+            apply()
+        }
+         */
+        trainSchedules.saveTrainScheduleConfigs(this)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun load(view: View) {
+        /*
+        val sharedPref = this.getPreferences(Context.MODE_PRIVATE) ?: return
+        /*
+        val defaultValue = 200
+        val highScore = sharedPref.getInt("test", defaultValue)
+         */
+        val gson = Gson()
+        val trainScheduleConfigsJson = sharedPref.getString("TrainScheduleConfigs", "Failed")
+        Log.d(TAG, "load called")
+        Log.d(TAG, trainScheduleConfigsJson.toString())
+        trainSchedules.trainScheduleConfigs = gson.fromJson(trainScheduleConfigsJson, TrainScheduleConfigs::class.java)
+         */
+        trainSchedules.loadTrainScheduleConfigs(this, resources)
+        val trains = trainSchedules.getNext3TrainsPrimary()
+        val trainNext = trains[0]
+        val remainTime = trainSchedules.trainSchedules[0].calcRemainTime(trainNext)
+        val text = "%s　%02d:%02d　あと %3d分 %2d秒".format(trainNext.train_type, trainNext.hour, trainNext.minute, remainTime.remainMinute, remainTime.remainSecond)
+        Log.d(TAG, text)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun add(view: View) {
+        trainSchedules.add(resources, trainScheduleConfig)
+        Log.d(TAG, "add trainScheduleConfig")
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun remove(view: View) {
+        val lastIndex = trainSchedules.trainScheduleConfigs.value.size - 1
+        trainSchedules.delete(resources, lastIndex)
+        Log.d(TAG, "delete trainScheduleConfig")
     }
 }
