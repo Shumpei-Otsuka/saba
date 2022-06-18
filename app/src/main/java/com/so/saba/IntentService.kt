@@ -34,7 +34,7 @@ class IntentService : IntentService("IntentService") {
             var intent: Intent = Intent(this, com.so.saba.IntentServiceRestarter::class.java)
             intent.apply {action = ACTION_SERVICE_RESTART}
             intent.putExtra(TRAIN_SCHEDULE_CONFIG, trainScheduleConfig)
-            startForegroundService(intent)
+            //startForegroundService(intent)
         }
     }
 
