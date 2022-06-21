@@ -25,7 +25,7 @@ data class TrainScheduleConfig(
 
 data class TrainScheduleConfigs(
     var value: Array<TrainScheduleConfig>
-    ) {
+    ): Serializable {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
