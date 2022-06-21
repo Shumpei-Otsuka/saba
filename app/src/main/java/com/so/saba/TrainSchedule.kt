@@ -244,6 +244,7 @@ class TrainSchedules() {
         for (trainScheduleConfig in trainScheduleConfigs.value) {
             trainSchedules += TrainSchedule(trainScheduleConfig)
             trainSchedules[index].loadTrains(resources.assets)
+            index += 1
         }
     }
 
