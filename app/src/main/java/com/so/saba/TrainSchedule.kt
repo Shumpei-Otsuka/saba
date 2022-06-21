@@ -279,4 +279,9 @@ class TrainSchedules() {
         trainSchedulePrimary.updateTrainsByDaytype()
         return trainSchedulePrimary.getNext3Trains()
     }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun calcRemainTimePrimary(train: TrainData): RemainTime {
+        return trainSchedules[indexPrimary].calcRemainTime(train)
+    }
 }
