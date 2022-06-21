@@ -70,7 +70,7 @@ class DisplayTrainScheduleActivity : AppCompatActivity() {
         // Start Service
         val intentStartService: Intent = Intent(this, IntentService::class.java)
         intentStartService.apply {action = ACTION_SERVICE_START}
-        intentStartService.putExtra(TRAIN_SCHEDULE_CONFIG, trainScheduleConfig)
+        intentStartService.putExtra(TRAIN_SCHEDULE_CONFIGS, trainSchedules.trainScheduleConfigs)
         startForegroundService(intentStartService)
         //startService(intentStartService)
     }

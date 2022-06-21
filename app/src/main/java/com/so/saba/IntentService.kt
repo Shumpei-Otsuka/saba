@@ -24,6 +24,7 @@ class IntentService : IntentService("IntentService") {
     var destroyFlag = false
     var restartFlag = true
     var trainScheduleConfig = TrainScheduleConfig()
+    var trainSchedules = TrainSchedules()
 
     @RequiresApi(Build.VERSION_CODES.O)
     override  fun onDestroy(){
@@ -49,9 +50,8 @@ class IntentService : IntentService("IntentService") {
             ACTION_SERVICE_START -> {
                 Log.d(TAG, "Service Started.")
                 // load trainSchedule
-                val trainScheduleConfig = intent.getSerializableExtra(TRAIN_SCHEDULE_CONFIG) as TrainScheduleConfig
-                val trainSchedule = TrainSchedule(trainScheduleConfig)
-                trainSchedule.loadTrains(resources.assets)
+                trainSchedules.trainScheduleConfigs = intent.getSerializableExtra(TRAIN_SCHEDULE_CONFIGS) as TrainScheduleConfigs
+                trainSchedules.updateTrainSchedulesFromConfigs(resources)
                 // start Foreground
                 val notification = makeNotification()
                 startForeground(1, notification)
@@ -62,7 +62,7 @@ class IntentService : IntentService("IntentService") {
                     val appWidgetManager = AppWidgetManager.getInstance(this)
                     val appWidgetIds = appWidgetManager.getAppWidgetIds(ComponentName(this, AppWidget::class.java))
                     var views = RemoteViews(context.packageName, R.layout.app_widget)
-                    views = updateWidgetViews(views, trainSchedule)
+                    views = updateWidgetViews(views, trainSchedules)
                     for (appWidgetId in appWidgetIds){
                         appWidgetManager.updateAppWidget(appWidgetId, views)
                     }
@@ -77,21 +77,21 @@ class IntentService : IntentService("IntentService") {
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun updateWidgetViews(views: RemoteViews, trainSchedule: TrainSchedule): RemoteViews {
-        trainSchedule.updateTrainsByDaytype()
+    private fun updateWidgetViews(views: RemoteViews, trainSchedules: TrainSchedules): RemoteViews {
         // set Next 3 trains
-        val trainsNext3 = trainSchedule.getNext3Trains()
+        val trainsNext3 = trainSchedules.getNext3TrainsPrimary()
+        val trainScheduleConfig = trainSchedules.trainScheduleConfigs.value[trainSchedules.indexPrimary]
         val idsRows = arrayOf(R.id.appwidget_row2, R.id.appwidget_row3, R.id.appwidget_row4)
         val suffix = arrayOf("先発　", "次発　", "次々発")
         // set TrainScheduleConfig
-        var row1 = "%s駅　%s　%s　%s".format(trainSchedule.trainScheduleConfig.station,
-            trainSchedule.trainScheduleConfig.line,
-            trainSchedule.trainScheduleConfig.destination,
+        var row1 = "%s駅　%s　%s　%s".format(trainScheduleConfig.station,
+            trainScheduleConfig.line,
+            trainScheduleConfig.destination,
             trainsNext3[0].note)
         views.setTextViewText(R.id.appwidget_row1, row1)
         for (trainIndex in 0..2) {
             var trainNext = trainsNext3[trainIndex]
-            var remainTime = trainSchedule.calcRemainTime(trainNext)
+            var remainTime = trainSchedules.calcRemainTimePrimary(trainNext)
             var row = "%s　%s　%02d:%02d　あと %3d分 %2d秒".format(suffix[trainIndex],
                 trainNext.train_type,
                 trainNext.hour,
