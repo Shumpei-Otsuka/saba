@@ -10,6 +10,7 @@ import android.preference.PreferenceManager
 import android.util.Log
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.Gson
@@ -139,8 +140,18 @@ class DisplayTrainScheduleActivity : AppCompatActivity() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun add(view: View) {
-        trainSchedules.add(resources, trainScheduleConfig)
-        Log.d(TAG, "add trainScheduleConfig")
+        if (trainSchedules.trainSchedules.size < 10) {
+            trainSchedules.add(resources, trainScheduleConfig)
+            Log.d(TAG, "add trainScheduleConfig")
+            trainSchedules.saveTrainScheduleConfigs(this)
+            val intent = Intent(this, ManagementTrainScheduleConfigs::class.java)
+            startActivity(intent)
+        }
+        else {
+            Toast.makeText(applicationContext , "時刻表を追加できませんでした。\n不要な時刻表を削除してください。", Toast.LENGTH_LONG).show()
+            val intent = Intent(this, ManagementTrainScheduleConfigs::class.java)
+            startActivity(intent)
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
