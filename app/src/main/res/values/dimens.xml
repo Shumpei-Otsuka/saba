@@ -8,6 +8,8 @@ http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
     <dimen name="widget_margin">0dp</dimen>
     <dimen name="table_padding">2dp</dimen>
     <dimen name="table_textSize">10sp</dimen>
+    <dimen name="management_table_padding">2dp</dimen>
+    <dimen name="management_table_textSize">16sp</dimen>
 
 
 </resources>

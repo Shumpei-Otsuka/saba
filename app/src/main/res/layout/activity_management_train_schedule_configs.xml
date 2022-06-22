@@ -1,0 +1,572 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ManagementTrainScheduleConfigs">
+
+    <TextView
+        android:id="@+id/ManagementTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="時刻表設定管理"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <Button
+        android:id="@+id/buttonStartService"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="50dp"
+        android:onClick="startService"
+        android:text="@string/button_start_service"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/buttonStopService" />
+
+    <Button
+        android:id="@+id/buttonStopService"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginBottom="50dp"
+        android:onClick="stopService"
+        android:text="@string/button_stop_service"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/buttonStartService"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/buttonReturnToMain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp"
+        android:onClick="returnToMain"
+        android:text="別の時刻表を追加"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/buttonStartService" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:onClick="returnToMain"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ManagementTitle"
+        app:layout_constraintBottom_toTopOf="@id/buttonReturnToMain" >
+
+    <TableLayout
+        android:id="@+id/ManagementTable"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ManagementTitle" >
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/station"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/table_textview_style"
+                android:gravity="center"
+                android:text="駅名"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/line"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/table_textview_style"
+                android:gravity="center"
+                android:text="路線名"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/destination"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/table_textview_style"
+                android:gravity="center"
+                android:text="方面"
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent"
+                android:backgroundTint="@color/transparent"
+                android:textColor="@color/transparent"
+                android:text="無効" />
+
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/station0"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="@dimen/management_table_padding"
+                android:background="@drawable/table_textview_style"
+                android:text="station0"
+                android:textSize="@dimen/management_table_textSize" />
+
+            <TextView
+                android:id="@+id/line0"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="@dimen/management_table_padding"
+                android:background="@drawable/table_textview_style"
+                android:text="line0"
+                android:textSize="@dimen/management_table_textSize" />
+
+            <TextView
+                android:id="@+id/destination0"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="@dimen/management_table_padding"
+                android:background="@drawable/table_textview_style"
+                android:text="destination0"
+                android:textSize="@dimen/management_table_textSize" />
+
+            <Button
+                android:id="@+id/button0"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="削除" />
+
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/station1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="@dimen/management_table_padding"
+                android:background="@drawable/table_textview_style"
+                android:text="station1"
+                android:textSize="@dimen/management_table_textSize" />
+
+            <TextView
+                android:id="@+id/line1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="@dimen/management_table_padding"
+                android:background="@drawable/table_textview_style"
+                android:text="line1"
+                android:textSize="@dimen/management_table_textSize" />
+
+            <TextView
+                android:id="@+id/destination1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="@dimen/management_table_padding"
+                android:background="@drawable/table_textview_style"
+                android:text="destination1"
+                android:textSize="@dimen/management_table_textSize" />
+
+            <Button
+                android:id="@+id/button1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="削除" />
+
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/station2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="@dimen/management_table_padding"
+                android:background="@drawable/table_textview_style"
+                android:text="station2"
+                android:textSize="@dimen/management_table_textSize" />
+
+            <TextView
+                android:id="@+id/line2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="@dimen/management_table_padding"
+                android:background="@drawable/table_textview_style"
+                android:text="line2"
+                android:textSize="@dimen/management_table_textSize" />
+
+            <TextView
+                android:id="@+id/destination2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="@dimen/management_table_padding"
+                android:background="@drawable/table_textview_style"
+                android:text="destination2"
+                android:textSize="@dimen/management_table_textSize" />
+
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="削除" />
+
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/station3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="@dimen/management_table_padding"
+                android:background="@drawable/table_textview_style"
+                android:text="station3"
+                android:textSize="@dimen/management_table_textSize" />
+
+            <TextView
+                android:id="@+id/line3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="@dimen/management_table_padding"
+                android:background="@drawable/table_textview_style"
+                android:text="line3"
+                android:textSize="@dimen/management_table_textSize" />
+
+            <TextView
+                android:id="@+id/destination3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="@dimen/management_table_padding"
+                android:background="@drawable/table_textview_style"
+                android:text="destination3"
+                android:textSize="@dimen/management_table_textSize" />
+
+            <Button
+                android:id="@+id/button3"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="削除" />
+
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/station4"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="@dimen/management_table_padding"
+                android:background="@drawable/table_textview_style"
+                android:text="station4"
+                android:textSize="@dimen/management_table_textSize" />
+
+            <TextView
+                android:id="@+id/line4"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="@dimen/management_table_padding"
+                android:background="@drawable/table_textview_style"
+                android:text="line4"
+                android:textSize="@dimen/management_table_textSize" />
+
+            <TextView
+                android:id="@+id/destination4"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="@dimen/management_table_padding"
+                android:background="@drawable/table_textview_style"
+                android:text="destination4"
+                android:textSize="@dimen/management_table_textSize" />
+
+            <Button
+                android:id="@+id/button4"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="削除" />
+
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/station5"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="@dimen/management_table_padding"
+                android:background="@drawable/table_textview_style"
+                android:text="station5"
+                android:textSize="@dimen/management_table_textSize" />
+
+            <TextView
+                android:id="@+id/line5"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="@dimen/management_table_padding"
+                android:background="@drawable/table_textview_style"
+                android:text="line5"
+                android:textSize="@dimen/management_table_textSize" />
+
+            <TextView
+                android:id="@+id/destination5"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="@dimen/management_table_padding"
+                android:background="@drawable/table_textview_style"
+                android:text="destination5"
+                android:textSize="@dimen/management_table_textSize" />
+
+            <Button
+                android:id="@+id/button5"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="削除" />
+
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/station6"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="@dimen/management_table_padding"
+                android:background="@drawable/table_textview_style"
+                android:text="station6"
+                android:textSize="@dimen/management_table_textSize" />
+
+            <TextView
+                android:id="@+id/line6"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="@dimen/management_table_padding"
+                android:background="@drawable/table_textview_style"
+                android:text="line6"
+                android:textSize="@dimen/management_table_textSize" />
+
+            <TextView
+                android:id="@+id/destination6"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="@dimen/management_table_padding"
+                android:background="@drawable/table_textview_style"
+                android:text="destination6"
+                android:textSize="@dimen/management_table_textSize" />
+
+            <Button
+                android:id="@+id/button6"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="削除" />
+
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/station7"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="@dimen/management_table_padding"
+                android:background="@drawable/table_textview_style"
+                android:text="station7"
+                android:textSize="@dimen/management_table_textSize" />
+
+            <TextView
+                android:id="@+id/line7"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="@dimen/management_table_padding"
+                android:background="@drawable/table_textview_style"
+                android:text="line7"
+                android:textSize="@dimen/management_table_textSize" />
+
+            <TextView
+                android:id="@+id/destination7"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="@dimen/management_table_padding"
+                android:background="@drawable/table_textview_style"
+                android:text="destination7"
+                android:textSize="@dimen/management_table_textSize" />
+
+            <Button
+                android:id="@+id/button7"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="削除" />
+
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/station8"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="@dimen/management_table_padding"
+                android:background="@drawable/table_textview_style"
+                android:text="station8"
+                android:textSize="@dimen/management_table_textSize" />
+
+            <TextView
+                android:id="@+id/line8"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="@dimen/management_table_padding"
+                android:background="@drawable/table_textview_style"
+                android:text="line8"
+                android:textSize="@dimen/management_table_textSize" />
+
+            <TextView
+                android:id="@+id/destination8"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="@dimen/management_table_padding"
+                android:background="@drawable/table_textview_style"
+                android:text="destination8"
+                android:textSize="@dimen/management_table_textSize" />
+
+            <Button
+                android:id="@+id/button8"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="削除" />
+
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/station9"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="@dimen/management_table_padding"
+                android:background="@drawable/table_textview_style"
+                android:text="station9"
+                android:textSize="@dimen/management_table_textSize" />
+
+            <TextView
+                android:id="@+id/line9"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="@dimen/management_table_padding"
+                android:background="@drawable/table_textview_style"
+                android:text="line9"
+                android:textSize="@dimen/management_table_textSize" />
+
+            <TextView
+                android:id="@+id/destination9"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="@dimen/management_table_padding"
+                android:background="@drawable/table_textview_style"
+                android:text="destination9"
+                android:textSize="@dimen/management_table_textSize" />
+
+            <Button
+                android:id="@+id/button9"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="削除" />
+
+        </TableRow>
+
+    </TableLayout>
+
+    </ScrollView>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

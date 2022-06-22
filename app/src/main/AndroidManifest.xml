@@ -12,6 +12,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Saba">
+        <activity
+            android:name=".ManagementTrainScheduleConfigs"
+            android:exported="false" />
+
         <service
             android:name=".IntentServiceRestarter"
             android:exported="false"></service>
