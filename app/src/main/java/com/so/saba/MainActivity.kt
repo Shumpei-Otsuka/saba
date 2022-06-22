@@ -104,6 +104,11 @@ class MainActivity : AppCompatActivity(), CoroutineScope{
         startActivity(intent)
     }
 
+    fun toManagement(view: View) {
+        val intent = Intent(this, ManagementTrainScheduleConfigs::class.java)
+        startActivity(intent)
+    }
+
     suspend fun updateLineSpinnerList(db:AppDatabase){
         val stationName = findViewById<EditText>(R.id.registeredStation).text.toString()
         val routeList:List<String> = getLineFromDB(stationName, db)
