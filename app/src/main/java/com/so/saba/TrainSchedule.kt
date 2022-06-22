@@ -238,7 +238,7 @@ class TrainSchedules() {
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun updateTrainSchedulesFromConfigs(resources: Resources) {
+    fun updateTrainSchedulesFromConfigs(resources: Resources) {
         trainSchedules = arrayOf<TrainSchedule>()
         var index = 0
         for (trainScheduleConfig in trainScheduleConfigs.value) {
