@@ -249,7 +249,7 @@ class TrainSchedules() {
     }
 
     fun saveTrainScheduleConfigs(activity: Activity) {
-        val sharedPref = activity.getPreferences(Context.MODE_PRIVATE) ?: return
+        val sharedPref = activity.getSharedPreferences("TrainScheduleConfigs", Context.MODE_PRIVATE) ?: return
         with (sharedPref.edit()) {
             val gson = Gson()
             val trainScheduleConfigsJson = gson.toJson(trainScheduleConfigs)
@@ -262,7 +262,7 @@ class TrainSchedules() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun loadTrainScheduleConfigs(activity: Activity, resources: Resources) {
-        val sharedPref = activity.getPreferences(Context.MODE_PRIVATE) ?: return
+        val sharedPref = activity.getSharedPreferences("TrainScheduleConfigs", Context.MODE_PRIVATE) ?: return
         val gson = Gson()
         val trainScheduleConfigsJson = sharedPref.getString("TrainScheduleConfigs", "Failed")
         if (trainScheduleConfigsJson.toString() != "Failed") {
