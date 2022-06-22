@@ -19,6 +19,7 @@ import java.time.format.DateTimeFormatter
 private val TAG: String = IntentService::class.java.simpleName
 
 const val ACTION_SERVICE_RESTART = "com.so.saba.action.ACTION_SERVICE_RESTART"
+const val ACTION_CHANGE_TRAIN_SCHEDULES_PRIMARY = "com.so.saba.action.ACTION_CHANGE_TRAIN_SCHEDULES_PRIMARY"
 
 class IntentService : IntentService("IntentService") {
     var destroyFlag = false
@@ -57,8 +58,15 @@ class IntentService : IntentService("IntentService") {
                 startForeground(1, notification)
                 // TODO: replace to timer?
                 while(destroyFlag == false){
-                    // update Widget
                     val context = applicationContext
+                    val sharedPref = context.getSharedPreferences("TrainScheduleConfigs", Context.MODE_PRIVATE) ?: return
+                    var indexPrimary = sharedPref.getInt("IndexPrimary", 0)
+                    if(indexPrimary > trainSchedules.trainSchedules.size - 1) {
+                        //invalid old value exists
+                        indexPrimary = 0
+                    }
+                    trainSchedules.indexPrimary = indexPrimary
+                    // update Widget
                     val appWidgetManager = AppWidgetManager.getInstance(this)
                     val appWidgetIds = appWidgetManager.getAppWidgetIds(ComponentName(this, AppWidget::class.java))
                     var views = RemoteViews(context.packageName, R.layout.app_widget)

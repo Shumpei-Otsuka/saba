@@ -1,5 +1,6 @@
 package com.so.saba
 
+import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetManager.ACTION_APPWIDGET_OPTIONS_CHANGED
 import android.appwidget.AppWidgetProvider
@@ -27,13 +28,16 @@ class AppWidget : AppWidgetProvider() {
     context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray
     ) {
         Log.d(TAG, "onUpdate called.")
+        // add button
+        val intent = Intent(context, com.so.saba.AppWidget::class.java)
+        intent.apply {action = ACTION_CHANGE_TRAIN_SCHEDULES_PRIMARY}
+        val pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_IMMUTABLE)
+        val remoteViews = RemoteViews(context.packageName, R.layout.app_widget)
+        remoteViews.setOnClickPendingIntent(R.id.widgetButton, pendingIntent)
         // There may be multiple widgets active, so update all of them
-        // TODO: Widget updated by IntentService. Remove this code.
-        /*
         for (appWidgetId in appWidgetIds) {
-            updateAppWidget(context, appWidgetManager, appWidgetId)
+            updateAppWidget(context, appWidgetManager, appWidgetId, remoteViews)
         }
-         */
     }
 
     override fun onEnabled(context: Context) {
@@ -46,6 +50,7 @@ class AppWidget : AppWidgetProvider() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onReceive(context: Context, intent: Intent) {
+        super.onReceive(context, intent)
         // TODO: Remove after Debug
         StringBuilder().apply {
             append("Action: ${intent.action}\n")
@@ -74,6 +79,23 @@ class AppWidget : AppWidgetProvider() {
                 }
                 */
             }
+            ACTION_CHANGE_TRAIN_SCHEDULES_PRIMARY -> {
+                Log.d(TAG, "AppWidget ACTION_CHANGE_TRAIN_SCHEDULES_PRIMARY called.")
+                val sharedPref = context.getSharedPreferences("TrainScheduleConfigs", Context.MODE_PRIVATE) ?: return
+                var size = sharedPref.getInt("size", -1)
+                Log.d(TAG, "size = %d".format(size))
+                var indexPrimary = sharedPref.getInt("IndexPrimary", 0)
+                if (indexPrimary < size - 1) {
+                    indexPrimary += 1
+                }
+                else {
+                    indexPrimary = 0
+                }
+                with (sharedPref.edit()) {
+                    putInt("IndexPrimary", indexPrimary)
+                    apply()
+                }
+            }
         }
     }
 
@@ -92,17 +114,13 @@ class AppWidget : AppWidgetProvider() {
 }
 
 // TODO: Remove This
-/*
+
 @RequiresApi(Build.VERSION_CODES.O)
-internal fun updateAppWidget(context: Context, appWidgetManager: AppWidgetManager, appWidgetId: Int) {
-    val widgetText = context.getString(R.string.appwidget_text)
-    // Construct the RemoteViews object
-    val views = RemoteViews(context.packageName, R.layout.app_widget)
-    //views.setTextViewText(R.id.appwidget_text, widgetText)
+internal fun updateAppWidget(context: Context, appWidgetManager: AppWidgetManager, appWidgetId: Int, views: RemoteViews) {
+    Log.d(TAG, "updateAppWidget called.")
     // Instruct the widget manager to update the widget
     appWidgetManager.updateAppWidget(appWidgetId, views)
 }
- */
 /*
 internal fun updateAppWidgetTrainScheduleConfig(context: Context, appWidgetManager: AppWidgetManager, appWidgetId: Int, views: RemoteViews,trainScheduleConfig: TrainScheduleConfig) {
     //val views = RemoteViews(context.packageName, R.layout.app_widget)

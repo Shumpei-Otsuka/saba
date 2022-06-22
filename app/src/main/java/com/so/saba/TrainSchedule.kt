@@ -254,6 +254,7 @@ class TrainSchedules() {
             val gson = Gson()
             val trainScheduleConfigsJson = gson.toJson(trainScheduleConfigs)
             putString("TrainScheduleConfigs", trainScheduleConfigsJson)
+            putInt("size", trainScheduleConfigs.value.size)
             apply()
             Log.d(TAG, "save called")
             Log.d(TAG, trainScheduleConfigsJson)
