@@ -74,7 +74,7 @@ class IntentService : IntentService("IntentService") {
                     for (appWidgetId in appWidgetIds){
                         appWidgetManager.updateAppWidget(appWidgetId, views)
                     }
-                    Thread.sleep(1000)
+                    Thread.sleep(200)
                 }
             }
             ACTION_SERVICE_STOP -> {
