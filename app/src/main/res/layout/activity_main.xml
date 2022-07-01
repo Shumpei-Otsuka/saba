@@ -91,11 +91,14 @@
         android:id="@+id/buttonToManagement"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:text="管理画面へ"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
+        android:drawableEnd="@drawable/setting_icon"
+        app:backgroundTint="#BBBBBB"
+        android:textColor="@color/black"
+        android:text="時刻表管理"
         android:onClick="toManagement"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <Spinner
