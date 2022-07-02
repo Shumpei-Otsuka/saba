@@ -68,5 +68,9 @@ interface TimeScheduleTableDao {
     @Query("INSERT INTO TimeScheduleTable(station,line,destination,weekdayPath,holidayPath) VALUES (:station,:line,:destination,:weekdayPath,:holidayPath)")
     //時刻表のレコードを１件追加
     fun insertTimeScheduleTable(station: String,line: String?,destination: String,weekdayPath: String, holidayPath:String)
+
+    @Query("SELECT DISTINCT station FROM TimeScheduleTable")
+    //駅名から路線のリストを取得
+    fun  getAllStation(): List<String>
 }
 

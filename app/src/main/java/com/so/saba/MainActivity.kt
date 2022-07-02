@@ -1,20 +1,17 @@
 package com.so.saba
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.content.res.AssetManager
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
+import kotlinx.coroutines.*
 import java.io.BufferedReader
 import java.io.InputStreamReader
-import java.io.Serializable
-import android.content.res.AssetManager
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Spinner
-import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
+
 
 const val EXTRA_MESSAGE = "com.so.saba.MESSAGE"
 
@@ -30,6 +27,8 @@ class MainActivity : AppCompatActivity(), CoroutineScope{
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        var stationList = listOf<String>()//autoComplete用の駅名リスト
+
         //--DB用の初期化処理--
         val db = AppDatabase.getInstance(applicationContext)//DB用のインスタンスを取得
         launch { //DBアクセスのため別のコルーチンをlaunch
@@ -37,9 +36,12 @@ class MainActivity : AppCompatActivity(), CoroutineScope{
                 db.TimeScheduleTableDao().deleteTimeScheduleTable()  //DBのテーブルを空にする
                 val inputTrainSchList = inputTrainScheduleConfigFile() //DBの初期値をassets配下のファイルから取得
                 insertListToDB(inputTrainSchList, db)  //初期化したDBのテーブルに初期値を代入
+                stationList = db.TimeScheduleTableDao().getAllStation()
+                setAutoCompletelist(stationList)
+
             }
         }
-        //--DB用の初期化処理--
+        //--DB用の初期化処理終了--
 
 
         /** Called when the user taps the button */
@@ -73,6 +75,15 @@ class MainActivity : AppCompatActivity(), CoroutineScope{
                     }
                 }
             }
+        })
+    }
+    suspend fun setAutoCompletelist(stationList : List<String>){
+        //autoCompleteをテキストに適用
+        this.runOnUiThread(java.lang.Runnable {
+            val adapter: ArrayAdapter<String> = ArrayAdapter<String>(this,
+                android.R.layout.simple_dropdown_item_1line, stationList)
+            val textView = findViewById<View>(R.id.registeredStation) as AutoCompleteTextView
+            textView.setAdapter(adapter)
         })
     }
 
