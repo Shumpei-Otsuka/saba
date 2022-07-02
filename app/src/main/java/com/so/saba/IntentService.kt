@@ -89,25 +89,34 @@ class IntentService : IntentService("IntentService") {
         // set Next 3 trains
         val trainsNext3 = trainSchedules.getNext3TrainsPrimary()
         val trainScheduleConfig = trainSchedules.trainScheduleConfigs.value[trainSchedules.indexPrimary]
-        val idsRows = arrayOf(R.id.appwidget_row2, R.id.appwidget_row3, R.id.appwidget_row4)
-        val suffix = arrayOf("先発　", "次発　", "次々発")
+
         // set TrainScheduleConfig
-        var row1 = "%s駅　%s　%s　%s".format(trainScheduleConfig.station,
-            trainScheduleConfig.line,
-            trainScheduleConfig.destination,
-            trainsNext3[0].note)
-        views.setTextViewText(R.id.appwidget_row1, row1)
-        for (trainIndex in 0..2) {
-            var trainNext = trainsNext3[trainIndex]
-            var remainTime = trainSchedules.calcRemainTimePrimary(trainNext)
-            var row = "%s　%s　%02d:%02d　あと %3d分 %2d秒".format(suffix[trainIndex],
-                trainNext.train_type,
-                trainNext.hour,
-                trainNext.minute,
-                remainTime.remainMinute,
-                remainTime.remainSecond)
-            views.setTextViewText(idsRows[trainIndex], row)
-        }
+        views.setTextViewText(R.id.widgetStation, "%s駅".format(trainScheduleConfig.station))
+        views.setTextViewText(R.id.widgetLine, "%s".format(trainScheduleConfig.line))
+        views.setTextViewText(R.id.widgetDestination, "%s".format(trainScheduleConfig.destination))
+        views.setTextViewText(R.id.widgetNote, trainsNext3[0].note)
+
+        var trainNext = trainsNext3[0]
+        var remainTime = trainSchedules.calcRemainTimePrimary(trainNext)
+        views.setTextViewText(R.id.widgetDestination1, "%s".format(trainNext.destination))
+        views.setTextViewText(R.id.widgetTrainType1,   "%s".format(trainNext.train_type))
+        views.setTextViewText(R.id.widgetTime1,        "%02d:%02d".format(trainNext.hour, trainNext.minute))
+        views.setTextViewText(R.id.widgetRemain1,      "あと %3d分 %3d秒".format(remainTime.remainMinute, remainTime.remainSecond))
+
+        trainNext = trainsNext3[1]
+        remainTime = trainSchedules.calcRemainTimePrimary(trainNext)
+        views.setTextViewText(R.id.widgetDestination2, "%s".format(trainNext.destination))
+        views.setTextViewText(R.id.widgetTrainType2,   "%s".format(trainNext.train_type))
+        views.setTextViewText(R.id.widgetTime2,        "%02d:%02d".format(trainNext.hour, trainNext.minute))
+        views.setTextViewText(R.id.widgetRemain2,      "あと %3d分 %3d秒".format(remainTime.remainMinute, remainTime.remainSecond))
+
+        trainNext = trainsNext3[2]
+        remainTime = trainSchedules.calcRemainTimePrimary(trainNext)
+        views.setTextViewText(R.id.widgetDestination3, "%s".format(trainNext.destination))
+        views.setTextViewText(R.id.widgetTrainType3,   "%s".format(trainNext.train_type))
+        views.setTextViewText(R.id.widgetTime3,        "%02d:%02d".format(trainNext.hour, trainNext.minute))
+        views.setTextViewText(R.id.widgetRemain3,      "あと %3d分 %3d秒".format(remainTime.remainMinute, remainTime.remainSecond))
+
         return views
     }
 
