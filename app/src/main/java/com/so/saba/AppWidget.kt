@@ -34,6 +34,7 @@ class AppWidget : AppWidgetProvider() {
         val pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_IMMUTABLE)
         val remoteViews = RemoteViews(context.packageName, R.layout.app_widget)
         remoteViews.setOnClickPendingIntent(R.id.widgetButton, pendingIntent)
+        Thread.sleep(100)
         // There may be multiple widgets active, so update all of them
         for (appWidgetId in appWidgetIds) {
             updateAppWidget(context, appWidgetManager, appWidgetId, remoteViews)
@@ -94,6 +95,22 @@ class AppWidget : AppWidgetProvider() {
                 with (sharedPref.edit()) {
                     putInt("IndexPrimary", indexPrimary)
                     apply()
+                }
+            }
+            ACTION_SET_ONCLICK_WIDGET_BUTTON -> {
+                Log.d(TAG, "AppWidget ACTION_SET_ONCLICK_WIDGET_BUTTON called.")
+                // add button method
+                val intent = Intent(context, com.so.saba.AppWidget::class.java)
+                intent.apply {action = ACTION_CHANGE_TRAIN_SCHEDULES_PRIMARY}
+                val pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_IMMUTABLE)
+                val remoteViews = RemoteViews(context.packageName, R.layout.app_widget)
+                remoteViews.setOnClickPendingIntent(R.id.widgetButton, pendingIntent)
+                Thread.sleep(100)
+                val appWidgetManager = AppWidgetManager.getInstance(context)
+                val appWidgetIds = appWidgetManager.getAppWidgetIds(ComponentName(context, AppWidget::class.java))
+                // There may be multiple widgets active, so update all of them
+                for (appWidgetId in appWidgetIds) {
+                    updateAppWidget(context, appWidgetManager, appWidgetId, remoteViews)
                 }
             }
         }

@@ -12,6 +12,7 @@ import androidx.annotation.RequiresApi
 
 private val TAG: String = ManagementTrainScheduleConfigs::class.java.simpleName
 const val TRAIN_SCHEDULE_CONFIGS = "com.so.saba.action.TRAIN_SCHEDULE_CONFIGS"
+const val ACTION_SET_ONCLICK_WIDGET_BUTTON = "com.so.saba.action.ACTION_SET_ONCLICK_WIDGET_BUTTON"
 
 
 class ManagementTrainScheduleConfigs : AppCompatActivity() {
@@ -42,6 +43,13 @@ class ManagementTrainScheduleConfigs : AppCompatActivity() {
         val intent: Intent = Intent(this, IntentService::class.java)
         intent.apply {action = ACTION_SERVICE_STOP}
         stopService(intent)
+
+        // set onclick widget button
+        val intentWidget: Intent = Intent(this, AppWidget::class.java)
+        intentWidget.apply {action = ACTION_SET_ONCLICK_WIDGET_BUTTON}
+        sendBroadcast(intentWidget)
+        // wait for update widget
+        Thread.sleep(2000)
 
         // Start Service
         val intentStartService: Intent = Intent(this, IntentService::class.java)
