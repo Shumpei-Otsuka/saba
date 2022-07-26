@@ -122,25 +122,27 @@ class IntentService : IntentService("IntentService") {
 
     private fun makeNotification(): Notification {
         //利用者への通知をサービス作成から５秒以内に作成（IntentServiceの仕様上必須）
-        val id = "SABA_Widget_foreground"
-        val name = "SABAの時刻表ウィジェット"
+        val ChannelID = "SABA_Widget_foreground"
         val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        val notifyDescription = "時刻表のウィジェットが動作中です。"
+        val textTitle = "SABA"
+        val textContent = "時刻表ウィジェットが動作中"
 
         @RequiresApi(Build.VERSION_CODES.O)
-        if (manager.getNotificationChannel(id) == null) {
-            val mChannel = NotificationChannel(id, name, NotificationManager.IMPORTANCE_HIGH)
+        if (manager.getNotificationChannel(ChannelID) == null) {
+            val mChannel = NotificationChannel(ChannelID, textTitle, NotificationManager.IMPORTANCE_HIGH)
             mChannel.apply {
-                description = notifyDescription
+                description = textContent
             }
             manager.createNotificationChannel(mChannel)
         }
 
-        val notification = NotificationCompat.Builder(this, id).apply {
-            //mContentTitle = "通知のタイトル"
-            //mContentText = "通知の内容"
-            setSmallIcon(R.drawable.ic_launcher_background)
-        }.build()
+        val notification = NotificationCompat.Builder(this, ChannelID)
+            .setSmallIcon(R.drawable.ic_notification)
+            .setContentTitle(textTitle)
+            .setContentText(textContent)
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .build()
+
         return notification
     }
 }
