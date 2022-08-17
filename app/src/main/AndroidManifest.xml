@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Saba">
         <activity
+            android:name=".Tutorial"
+            android:exported="false" />
+        <activity
             android:name=".ManagementTrainScheduleConfigs"
             android:exported="false" />
 
