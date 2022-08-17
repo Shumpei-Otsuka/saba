@@ -8,6 +8,8 @@ import android.os.Build
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
@@ -51,6 +53,17 @@ class DisplayTrainScheduleActivity : AppCompatActivity() {
         Log.d(TAG, trainScheduleConfigsJson.toString())
          */
         trainSchedules.loadTrainScheduleConfigs(this, resources)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.option, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val intent = Intent(this, Tutorial::class.java)
+        startActivity(intent)
+        return super.onOptionsItemSelected(item)
     }
 
     /** Called when the user taps the Send button */
