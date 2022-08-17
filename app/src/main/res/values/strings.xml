@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">saba</string>
+    <string name="app_name">SABA</string>
     <string name="edit_message">Enter a message</string>
     <string name="button_send">Send</string>
     <string name="button_start_service">タイマー開始</string>
