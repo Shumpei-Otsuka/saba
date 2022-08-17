@@ -1,5 +1,6 @@
 package com.so.saba
 
+import android.content.Context
 import android.content.Intent
 import android.content.res.AssetManager
 import android.os.Bundle
@@ -78,6 +79,14 @@ class MainActivity : AppCompatActivity(), CoroutineScope{
                 }
             }
         })
+
+        //Tutorialを一度も表示していない場合は、チュートリアルを表示する。
+        val sharedPref = this.getSharedPreferences("PreviousState", Context.MODE_PRIVATE) ?: return
+        val tutorialDisplayed = sharedPref.getBoolean("TutorialDisplayed", false)
+        if (tutorialDisplayed == false) {
+            val intent = Intent(this, Tutorial::class.java)
+            startActivity(intent)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
