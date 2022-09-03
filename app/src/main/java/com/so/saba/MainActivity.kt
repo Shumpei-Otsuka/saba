@@ -166,6 +166,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope{
             android.R.layout.simple_spinner_item,
             routeList
         )
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         runOnUiThread(java.lang.Runnable {routeSpinner.adapter = adapter})
     }
     suspend fun updateDestinationSpinnerList(db:AppDatabase){
@@ -178,6 +179,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope{
             android.R.layout.simple_spinner_item,
             destinationList
         )
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         runOnUiThread(java.lang.Runnable {destinationSpinner.adapter = adapter})
     }
 
