@@ -178,8 +178,13 @@ class TrainSchedule(val trainScheduleConfig: TrainScheduleConfig) {
         // query remain time > 0
         val filter = deltaTimesSorted.withIndex().filter{it.value > 0}.map{it.index}
         val indicesSortedFiltered = indicesSorted.slice(filter)
+        var trains_sorted = trains.slice(indicesSortedFiltered)
+        //check number of trains if not enough add TrainData
+        while(trains_sorted.size < 3){
+            trains_sorted += arrayOf<TrainData>(TrainData(-1, -1, note="Invalid"))
+        }
         // get trains
-        val next3Trains = trains.slice(indicesSortedFiltered).slice(0..2)
+        val next3Trains = trains_sorted.slice(0..2)
         return next3Trains
     }
 
@@ -195,6 +200,9 @@ class TrainSchedule(val trainScheduleConfig: TrainScheduleConfig) {
         }
         val dtMinute = dt / 60
         val dtSecond = dt % 60
+        if(train.note == "Invalid"){
+            return RemainTime(-1, -1)
+        }
         return RemainTime(dtMinute, dtSecond)
     }
 
