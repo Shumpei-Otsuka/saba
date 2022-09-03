@@ -5,9 +5,11 @@ import android.content.Intent
 import android.content.res.AssetManager
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.coroutines.*
@@ -86,6 +88,18 @@ class MainActivity : AppCompatActivity(), CoroutineScope{
         if (tutorialDisplayed == false) {
             val intent = Intent(this, Tutorial::class.java)
             startActivity(intent)
+        }
+
+        //駅名検索でのkeyboardがEnterで閉じるように変更
+        val inputMethodManager = this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val registeredStation = findViewById<EditText>(R.id.registeredStation)
+        registeredStation.setOnKeyListener OnKeyListener@{ v, keyCode, keyEvent ->
+            if (keyEvent.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
+                inputMethodManager.hideSoftInputFromWindow(registeredStation.windowToken,
+                    InputMethodManager.RESULT_UNCHANGED_SHOWN)
+                return@OnKeyListener true
+            }
+            false
         }
     }
 
