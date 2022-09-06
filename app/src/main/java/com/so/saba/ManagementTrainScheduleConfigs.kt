@@ -10,6 +10,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 
 private val TAG: String = ManagementTrainScheduleConfigs::class.java.simpleName
@@ -64,12 +65,20 @@ class ManagementTrainScheduleConfigs : AppCompatActivity() {
         // wait for update widget
         Thread.sleep(2000)
 
-        // Start Service
-        val intentStartService: Intent = Intent(this, IntentService::class.java)
-        intentStartService.apply {action = ACTION_SERVICE_START}
-        intentStartService.putExtra(TRAIN_SCHEDULE_CONFIGS, trainSchedules.trainScheduleConfigs)
-        startForegroundService(intentStartService)
-        //startService(intentStartService)
+        //check config is valid
+        if(trainSchedules.trainScheduleConfigs.value.size == 0) {
+            Log.d(TAG, "no config")
+            val toast = Toast.makeText(applicationContext, "駅の設定がありません。\n時刻表を追加してください。", Toast.LENGTH_LONG)
+            toast.show()
+        }
+        else {
+            // Start Service
+            val intentStartService: Intent = Intent(this, IntentService::class.java)
+            intentStartService.apply { action = ACTION_SERVICE_START }
+            intentStartService.putExtra(TRAIN_SCHEDULE_CONFIGS, trainSchedules.trainScheduleConfigs)
+            startForegroundService(intentStartService)
+            //startService(intentStartService)
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
