@@ -25,6 +25,9 @@
         <service
             android:name=".IntentService"
             android:exported="false" />
+        <service
+            android:name=".WidgetUpdateService"
+            android:exported="false" />
 
         <receiver
             android:name=".AppWidget"

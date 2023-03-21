@@ -15,6 +15,7 @@ import androidx.annotation.RequiresApi
 
 private val TAG: String = ManagementTrainScheduleConfigs::class.java.simpleName
 const val TRAIN_SCHEDULE_CONFIGS = "com.so.saba.action.TRAIN_SCHEDULE_CONFIGS"
+const val ACTION_WIDGET_UPDATE_SERVICE = "com.so.saba.action.ACTION_WIDGET_UPDATE_SERVICE"
 const val ACTION_SET_ONCLICK_WIDGET_BUTTON = "com.so.saba.action.ACTION_SET_ONCLICK_WIDGET_BUTTON"
 
 
@@ -54,8 +55,8 @@ class ManagementTrainScheduleConfigs : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
     fun startService(view: View) {
         // Stop Old Service
-        val intent: Intent = Intent(this, IntentService::class.java)
-        intent.apply {action = ACTION_SERVICE_STOP}
+        val intent: Intent = Intent(this, WidgetUpdateService::class.java)
+        intent.apply {action = ACTION_WIDGET_UPDATE_SERVICE}
         stopService(intent)
 
         // set onclick widget button
@@ -73,8 +74,9 @@ class ManagementTrainScheduleConfigs : AppCompatActivity() {
         }
         else {
             // Start Service
-            val intentStartService: Intent = Intent(this, IntentService::class.java)
-            intentStartService.apply { action = ACTION_SERVICE_START }
+            // Start Service
+            val intentStartService: Intent = Intent(this, WidgetUpdateService::class.java)
+            intentStartService.apply { action = ACTION_WIDGET_UPDATE_SERVICE }
             intentStartService.putExtra(TRAIN_SCHEDULE_CONFIGS, trainSchedules.trainScheduleConfigs)
             startForegroundService(intentStartService)
             //startService(intentStartService)
@@ -84,8 +86,8 @@ class ManagementTrainScheduleConfigs : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
     fun stopService(view: View) {
         // Stop Old Service
-        val intent: Intent = Intent(this, IntentService::class.java)
-        intent.apply {action = ACTION_SERVICE_STOP}
+        val intent: Intent = Intent(this, WidgetUpdateService::class.java)
+        intent.apply {action = ACTION_WIDGET_UPDATE_SERVICE}
         stopService(intent)
     }
 
