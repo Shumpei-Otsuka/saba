@@ -98,7 +98,7 @@ class AppWidget : AppWidgetProvider() {
                 }
             }
             ACTION_SET_ONCLICK_WIDGET_BUTTON -> {
-                Log.d(TAG, "AppWidget ACTION_SET_ONCLICK_WIDGET_BUTTON called.")
+                //Log.d(TAG, "AppWidget ACTION_SET_ONCLICK_WIDGET_BUTTON called.")
                 // add button method
                 val intent = Intent(context, com.so.saba.AppWidget::class.java)
                 intent.apply {action = ACTION_CHANGE_TRAIN_SCHEDULES_PRIMARY}
@@ -134,7 +134,7 @@ class AppWidget : AppWidgetProvider() {
 
 @RequiresApi(Build.VERSION_CODES.O)
 internal fun updateAppWidget(context: Context, appWidgetManager: AppWidgetManager, appWidgetId: Int, views: RemoteViews) {
-    Log.d(TAG, "updateAppWidget called.")
+    //Log.d(TAG, "updateAppWidget called.")
     // Instruct the widget manager to update the widget
     appWidgetManager.updateAppWidget(appWidgetId, views)
 }
