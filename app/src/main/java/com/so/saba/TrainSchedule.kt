@@ -270,8 +270,8 @@ class TrainSchedules() {
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    fun loadTrainScheduleConfigs(activity: Activity, resources: Resources) {
-        val sharedPref = activity.getSharedPreferences("TrainScheduleConfigs", Context.MODE_PRIVATE) ?: return
+    fun loadTrainScheduleConfigs(context: Context, resources: Resources) {
+        val sharedPref = context.getSharedPreferences("TrainScheduleConfigs", Context.MODE_PRIVATE)
         val gson = Gson()
         val trainScheduleConfigsJson = sharedPref.getString("TrainScheduleConfigs", "Failed")
         if (trainScheduleConfigsJson.toString() != "Failed") {
